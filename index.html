@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0B0C">
+<title>सेहत Saathi</title>
+<script>window.CB=/[?&]code=/.test(location.search)</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0B0C;--card:#141415;--ink:#FFFFFF;--muted:#C9CCC2;--line:rgba(255,255,255,.38);--accent:#C8F432;--accent-ink:#0B0B0C;--logo1:#FFFFFF;--logo2:#C8F432;--amber:#FFD166;--red:#FF9B8C;--fs:1;
+--serif:'Instrument Serif','Noto Serif Devanagari',Georgia,serif;--sans:'Inter','Noto Sans Devanagari',system-ui,sans-serif;color-scheme:dark}
+html[data-fs="1"]{--fs:1}html[data-fs="2"]{--fs:1.2}html[data-fs="3"]{--fs:1.4}
+*,*::before,*::after{box-sizing:inherit}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{font-size:calc(20px*var(--fs));background:var(--bg);scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font:500 1rem/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+button,input,textarea{font-family:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+/* top bar: language + text size, always visible */
+#tb{position:relative;z-index:5;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.6rem;max-width:36rem;margin:0 auto;padding:.7rem 1.1rem 0}
+.tbg{display:flex;gap:8px}
+.tbb{min-height:48px;min-width:48px;padding:0 16px;border:2px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06);color:#fff;font:700 17px/1 var(--sans);cursor:pointer}
+.tbb[aria-disabled="true"]{opacity:.4}
+
+.app{min-height:calc(100vh - 4rem);display:flex;align-items:flex-start;justify-content:center;padding:1rem 1.1rem 7.5rem;opacity:0}
+body.ready .app{opacity:1;transition:opacity .5s ease .1s}
+.screen{scroll-margin-top:7rem;position:relative;width:100%;max-width:34rem;display:flex;flex-direction:column;align-items:stretch;text-align:center}
+.logo{width:9rem;margin:0 auto}
+.logo svg{width:100%;height:auto;display:block}
+.l1{fill:var(--logo1)}.l2{fill:var(--logo2)}
+h1{margin:1.1rem 0 .5rem;font:700 1.75rem/1.3 var(--sans)}
+.sub{margin:0 auto;color:var(--muted);font-size:1.05rem;line-height:1.7;max-width:30rem}
+.note{margin:.7rem 0 0;font-size:1rem;line-height:1.6;color:var(--muted);text-align:left}
+[role=alert].note,#mst{color:#FFC2B8;font-weight:600;font-size:1.05rem}
+.legal{margin:1.6rem auto 0;font-size:.95rem;line-height:1.65;color:var(--muted);max-width:30rem}
+.bk{align-self:flex-start;min-height:3rem;margin:0 0 .6rem;padding:0 1.2rem;border:2px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06);color:#fff;font:700 1.05rem var(--sans);cursor:pointer}
+.stp{align-self:center;margin:1rem 0 0;padding:.35rem 1rem;border:2px solid var(--line);border-radius:999px;font:600 .95rem var(--sans);color:var(--muted)}
+
+/* buttons: big, high contrast */
+.cta{display:flex;align-items:center;justify-content:center;gap:.7rem;width:100%;min-height:3.6rem;margin-top:1.2rem;padding:.8rem 1.4rem;border:0;border-radius:999px;background:var(--accent);color:var(--accent-ink);font:700 1.15rem/1.3 var(--sans);text-decoration:none;cursor:pointer}
+.cta:active{transform:scale(.98)}
+.cta.ghost{background:transparent;color:#fff;border:2px solid var(--line)}
+.back{align-self:center;min-height:3.2rem;margin-top:1rem;padding:.6rem 1.4rem;border:2px solid var(--line);border-radius:999px;background:none;color:#fff;font:600 1.05rem var(--sans);cursor:pointer}
+
+/* welcome */
+.land::before{content:"";position:absolute;left:50%;top:-2rem;width:100%;max-width:40rem;height:16rem;transform:translateX(-50%);background:radial-gradient(ellipse 50% 50% at 50% 30%,rgba(200,244,50,.28),transparent 72%);pointer-events:none}
+.land>*{position:relative}
+.hero-h{margin:.8rem 0 .8rem;font:400 clamp(2.4rem,11vw,3.4rem)/1.1 var(--serif);letter-spacing:-.01em;text-wrap:balance}
+.hero-h em{font-style:italic;color:#E3F7A0}
+html[lang=hi] .hero-h em{font-style:normal}
+.land .label{margin:1.6rem 0 .7rem;font:700 1.1rem var(--sans);color:#fff}
+.langs{display:grid;gap:.8rem}
+.row{display:flex;gap:.6rem;align-items:stretch}
+.lang{flex:1;display:flex;align-items:center;justify-content:space-between;gap:.8rem;min-height:4rem;padding:.6rem 1.2rem;border:2px solid var(--line);border-radius:1.2rem;background:rgba(255,255,255,.05);color:#fff;font:inherit;text-align:left;cursor:pointer}
+.name{font-size:1.4rem;font-weight:700;line-height:1.2}
+.alt{display:block;font-size:.95rem;font-weight:500;color:var(--muted)}
+.tick{flex:none;width:2rem;height:2rem;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:transparent}
+.lang[aria-checked="true"]{border:3px solid var(--accent);background:rgba(200,244,50,.12)}
+.lang[aria-checked="true"] .tick{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.speak{flex:none;width:4rem;border:2px solid var(--line);border-radius:1.2rem;background:rgba(255,255,255,.05);color:var(--accent);display:grid;place-items:center;cursor:pointer}
+
+/* forms: visible labels, big fields */
+.f{display:grid;gap:1.1rem;margin-top:1.2rem;text-align:left}
+.f .cta{margin-top:.3rem}
+.fld{display:grid;gap:.4rem}
+.fld label{font:700 1.1rem var(--sans)}
+input,textarea{width:100%;min-height:3.6rem;padding:.8rem 1rem;border:2px solid var(--line);border-radius:1rem;background:#161617;color:#fff;font:500 1.2rem/1.4 var(--sans)}
+input::placeholder,textarea::placeholder{color:#9A9E94}
+input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(200,244,50,.25);outline:0}
+.consent{display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:2px solid var(--line);border-radius:1rem;font-size:1rem;line-height:1.65;cursor:pointer}
+.consent input{flex:none;width:2.1rem;min-height:2.1rem;height:2.1rem;margin:.1rem 0 0;accent-color:var(--accent)}
+
+/* home + check */
+.mic{align-self:center;width:9rem;height:9rem;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;margin:1.4rem 0 .6rem;cursor:pointer;box-shadow:0 0 50px rgba(200,244,50,.3)}
+.f .mic{justify-self:center}.f .mlab{text-align:center}
+.mic.sm{width:6.5rem;height:6.5rem;margin:.2rem 0}
+.mic.on{animation:pulse 1.2s infinite}@keyframes pulse{50%{box-shadow:0 0 0 1.2rem rgba(200,244,50,.25)}}
+.mlab{margin:0 0 .4rem;font:700 1.25rem var(--sans)}
+#qn{align-self:center;margin:0;font:600 1rem var(--sans);color:var(--muted)}
+#pbar{display:flex;gap:.4rem;margin:.6rem 0 0}
+#pbar i{flex:1;height:.5rem;border-radius:.5rem;background:rgba(255,255,255,.2)}
+#pbar i.on{background:var(--accent)}
+#qtext{margin:1rem 0 .4rem;font:700 1.6rem/1.35 var(--sans)}
+.chips{display:flex;flex-direction:column;gap:.8rem;margin-top:1rem}
+.chip{width:100%;min-height:3.8rem;padding:.7rem 1.2rem;border:2px solid var(--line);border-radius:1rem;background:rgba(255,255,255,.06);color:#fff;font:700 1.25rem var(--sans);cursor:pointer}
+.chip:active{border-color:var(--accent);background:rgba(200,244,50,.15)}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.6rem}
+.qk{min-height:3.2rem;padding:.4rem .6rem;border:2px solid var(--line);border-radius:.9rem;background:rgba(255,255,255,.06);color:#fff;font:600 1.05rem var(--sans);cursor:pointer}
+.qk[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.ql{margin:1rem 0 0;font:600 1rem var(--sans);color:var(--muted);text-align:left}
+.btnrow{display:flex;gap:.7rem;margin-top:1.1rem}
+.btnrow .cta,.btnrow .back{flex:1;margin:0;align-self:auto}
+
+/* result */
+.sev{width:100%;padding:1.1rem 1.2rem;border-radius:1.1rem;border:3px solid;font:700 1.45rem/1.4 var(--sans);margin-top:.4rem}
+.sev.g{background:rgba(200,244,50,.14);border-color:var(--accent);color:#E8FAA6}
+.sev.y{background:rgba(255,209,102,.14);border-color:var(--amber);color:var(--amber)}
+.sev.r{background:rgba(255,155,140,.16);border-color:var(--red);color:var(--red)}
+.box{text-align:left;background:var(--card);border:2px solid var(--line);border-radius:1.1rem;padding:1rem 1.2rem;margin-top:1rem;font-size:1.1rem;line-height:1.8;color:#fff}
+.box b{display:block;color:var(--accent);margin-bottom:.3rem;font:700 1.15rem var(--sans)}
+
+#back,#hback,#pback{display:none}
+/* family care circle */
+.cr{padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.18)}.cr:last-child{border:0;padding-bottom:0}
+.cr b{margin-bottom:.1rem;font-size:1rem;color:var(--muted)}
+.cr a{color:var(--accent);font-weight:700}
+#okst{margin:.6rem 0 0;font-size:1.05rem;color:var(--accent);font-weight:600}
+
+/* SOS */
+#sosb{position:fixed;left:1.1rem;right:1.1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));z-index:40;max-width:34rem;margin:0 auto;min-height:3.8rem;background:#E5392B;color:#fff;border:3px solid #fff;border-radius:999px;font:700 1.25rem var(--sans);cursor:pointer;box-shadow:0 8px 30px rgba(229,57,43,.5)}
+#sos{position:fixed;inset:0;z-index:60;background:#A51212;color:#fff;display:flex;align-items:flex-start;justify-content:center;padding:1.4rem 1.2rem;overflow:auto}
+.sosin{max-width:30rem;width:100%;text-align:center}
+#cd{font:700 6rem/1.1 var(--sans)}
+#s1{font-size:1.3rem;line-height:1.55;font-weight:600;margin:.4rem 0 1rem}
+#hl{background:#fff;color:#7f0000;padding:1rem;border-radius:1rem;font-size:1.1rem;line-height:1.6}
+.sa{display:flex;align-items:center;justify-content:center;width:100%;min-height:3.8rem;margin-top:.9rem;padding:.7rem 1rem;border:0;border-radius:999px;background:#fff;color:#7f0000;font:700 1.2rem var(--sans);text-decoration:none;cursor:pointer}
+.sa.out{background:transparent;color:#fff;border:3px solid #fff}
+
+#splash{position:fixed;inset:0;z-index:50;background:var(--bg);display:grid;place-items:center;transition:opacity .55s ease,visibility .55s}
+#splash.out{opacity:0;visibility:hidden}
+#splash svg{width:min(66vw,300px);height:auto;display:block}
+@media (prefers-reduced-motion:reduce){.mic.on{animation:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><g id="p-hi"><path class="l1" d="M141.4474959612278 85.38933764135705H128.36187399030695V172.62681744749597H109.78352180936994V126.42326332794832H84.90468497576737L81.67366720516962 122.06138933764137Q75.53473344103392 127.06946688206787 67.29563812600969 127.55411954765752Q81.83521809369951 147.7479806138934 96.37479806138933 162.28756058158322L83.2891760904685 174.24232633279485Q69.23424878836833 159.05654281098546 57.764135702746366 144.35541195476577Q46.2940226171244 129.65428109854605 28.846526655896607 104.4523424878837L43.709208400646204 94.11308562197094L50.49434571890146 104.12924071082392Q55.17932148626818 110.91437802907917 64.54927302100161 110.91437802907917Q71.33441033925686 110.91437802907917 71.33441033925686 101.8675282714055V85.38933764135705H24.0V67.13408723747982H141.4474959612278ZM109.78352180936994 111.39903069466882V85.38933764135705H89.58966074313409V111.39903069466882Z M128.0387722132472 66.97253634894993H111.72213247172861L76.01938610662361 33.53150242326333L88.29725363489501 24.0Z M166.1647819063005 149.52504038772216Q166.1647819063005 157.27948303715672 177.79644588045235 163.66074313408726Q189.4281098546042 170.0420032310178 205.9063004846527 172.78836833602585L203.96768982229406 185.7124394184168Q199.12116316639742 185.7124394184168 192.90145395799678 184.82390953150244Q186.68174474959613 183.93537964458807 178.52342487883686 181.43134087237482Q170.36510500807756 178.92730210016157 163.82229402261714 175.0500807754443Q157.27948303715672 171.172859450727 152.67528271405496 164.22617124394185Q148.07108239095317 157.27948303715672 148.07108239095317 148.55573505654283Q148.07108239095317 139.0242326332795 157.27948303715672 130.13893376413571Q146.45557350565429 118.34571890145398 146.45557350565429 108.16801292407109Q146.45557350565429 102.67528271405494 150.17124394184168 98.55573505654283Q153.8869143780291 94.4361873990307 159.37964458804527 94.4361873990307H194.59773828756062V85.38933764135705H138.21647819063006V67.13408723747982H226.42326332794832V85.38933764135705H212.69143780290796V109.29886914378031H165.19547657512118Q165.84168012924073 112.04523424878838 168.42649434571894 115.92245557350566Q171.01130856219712 119.79967689822296 173.27302100161552 121.57673667205171Q181.83521809369952 118.83037156704363 186.68174474959613 118.83037156704363Q192.1744749596123 118.83037156704363 197.26332794830375 119.8804523424879Q202.35218093699518 120.93053311793216 207.52180936995157 123.35379644588046Q212.69143780290796 125.77705977382877 215.84168012924073 131.02746365105008Q218.99192245557353 136.27786752827143 218.99192245557353 143.54765751211633Q218.99192245557353 146.2940226171244 218.26494345718902 148.79806138933765Q217.53796445880454 151.3021001615509 216.81098546042006 152.91760904684975Q216.08400646203557 154.53311793214863 214.3069466882068 156.5525040387722Q212.52988691437804 158.5718901453958 211.80290791599356 159.21809369951535Q211.07592891760908 159.8642972536349 208.81421647819064 161.7221324717286Q206.5525040387722 163.5799676898223 206.39095315024235 163.74151857835218L194.75928917609048 151.94830371567045Q200.7366720516963 148.71728594507272 200.7366720516963 143.06300484652667Q200.7366720516963 139.83198707592894 197.0210016155089 136.68174474959613Q193.3053311793215 133.53150242326333 186.35864297253636 133.53150242326333Q178.11954765751213 133.53150242326333 172.14216478190633 138.78190630048465Q166.1647819063005 144.032310177706 166.1647819063005 149.52504038772216Z M251.62520193861067 95.7285945072698H292.65912762520196V85.38933764135705H223.19224555735056V67.13408723747982H324.0V85.38933764135705H310.91437802907916V172.62681744749597H292.65912762520196V110.91437802907917H260.1873990306947Q256.31017770597737 110.91437802907917 254.12924071082392 113.82229402261714Q251.94830371567045 116.7302100161551 251.94830371567045 120.4458804523425Q251.94830371567045 129.49273021001616 257.3602584814217 139.67043618739905Q262.7722132471729 149.8481421647819 267.8610662358643 155.58319870759289Q272.94991922455574 161.3182552504039 276.1809369951535 163.5799676898223L265.84168012924073 174.08077544426496Q265.6801292407108 173.91922455573507 263.74151857835216 172.14216478190633Q261.80290791599356 170.36510500807756 260.4297253634895 169.15347334410342Q259.0565428109855 167.94184168012924 256.39095315024235 165.2762520193861Q253.7253634894992 162.610662358643 251.7059773828756 160.3489499192246Q249.68659127625202 158.08723747980616 247.0210016155089 154.69466882067854Q244.35541195476577 151.3021001615509 242.33602584814219 148.313408723748Q240.31663974151857 145.3247172859451 238.1357027463651 141.52827140549275Q235.95476575121162 137.7318255250404 234.66235864297255 134.25848142164784Q233.36995153473345 130.78513731825527 232.48142164781905 126.7463651050081Q231.59289176090468 122.70759289176092 231.59289176090468 118.99192245557353Q231.59289176090468 115.27625201938612 232.48142164781905 111.64135702746367Q233.36995153473345 108.0064620355412 235.47011308562196 104.21001615508887Q237.5702746365105 100.41357027463653 241.77059773828756 98.07108239095317Q245.97092084006462 95.7285945072698 251.62520193861067 95.7285945072698Z"/></g><g id="p-en"><path class="l2" d="M24.0 233.7823027443829H40.74846625766871Q41.11656441717791 237.37125979959762 43.233128834355824 239.2577628670823Q45.349693251533736 241.14426593456696 48.75460122699386 241.14426593456696Q52.25153374233129 241.14426593456696 54.2760736196319 239.5338364867142Q56.30061349693251 237.92340703886143 56.30061349693251 235.0706463026651Q56.30061349693251 232.67800826585528 54.690184049079754 231.1135910879412Q53.079754601226995 229.54917391002706 50.733128834355824 228.53690397137677Q48.38650306748466 227.52463403272645 44.06134969325153 226.23629047444425Q37.80368098159509 224.30377513702095 33.84662576687117 222.37125979959762Q29.88957055214724 220.43874446217433 27.03680981595092 216.665738327205Q24.1840490797546 212.89273219223566 24.1840490797546 206.81911256033382Q24.1840490797546 197.80070765235837 30.717791411042946 192.69334568916818Q37.25153374233129 187.585983725978 47.74233128834356 187.585983725978Q58.417177914110425 187.585983725978 64.95092024539878 192.69334568916818Q71.48466257668711 197.80070765235837 71.94478527607362 206.91113710021114H54.920245398773005Q54.736196319018404 203.7823027443829 52.61963190184049 201.98782421677555Q50.50306748466258 200.19334568916818 47.190184049079754 200.19334568916818Q44.33742331288343 200.19334568916818 42.58895705521472 201.71175059714363Q40.84049079754601 203.23015550511911 40.84049079754601 206.08291624131542Q40.84049079754601 209.21175059714363 43.78527607361963 210.96021685481236Q46.73006134969325 212.70868311248105 52.987730061349694 214.73322298978167Q59.24539877300613 216.8497874069596 63.15644171779141 218.7823027443829Q67.06748466257669 220.71481808180621 69.920245398773 224.39579967689824Q72.77300613496932 228.07678127199026 72.77300613496932 233.8743272842602Q72.77300613496932 239.39579967689824 69.96625766871165 243.90500213088598Q67.15950920245399 248.4142045848737 61.82208588957055 251.08291624131542Q56.484662576687114 253.75162789775715 49.214723926380366 253.75162789775715Q42.12883435582822 253.75162789775715 36.515337423312886 251.45101440082462Q30.901840490797547 249.1504009038921 27.542944785276074 244.64119844990438Q24.1840490797546 240.13199599591664 24.0 233.7823027443829Z M101.94478527607362 201.02156654806387Q107.37423312883435 201.02156654806387 111.46932515337423 203.23015550511911Q115.5644171779141 205.43874446217433 117.77300613496931 209.02770151738903V201.75776286708228H133.5092024539877V253.10745611861603H117.77300613496931V245.83751746830927Q115.47239263803681 249.426474523524 111.37730061349693 251.63506348057922Q107.28220858895705 253.84365243763443 101.8527607361963 253.84365243763443Q95.59509202453987 253.84365243763443 90.44171779141104 250.57678127199026Q85.28834355828221 247.30991010634608 82.29754601226993 241.2823027443829Q79.30674846625766 235.2546953824197 79.30674846625766 227.34058495297185Q79.30674846625766 219.426474523524 82.29754601226993 213.44487943149946Q85.28834355828221 207.4632843394749 90.44171779141104 204.24242544376938Q95.59509202453987 201.02156654806387 101.94478527607362 201.02156654806387ZM106.54601226993864 214.73322298978167Q101.8527607361963 214.73322298978167 98.58588957055213 218.09211869530316Q95.31901840490796 221.45101440082462 95.31901840490796 227.34058495297185Q95.31901840490796 233.2301555051191 98.58588957055213 236.68107575051786Q101.8527607361963 240.13199599591664 106.54601226993864 240.13199599591664Q111.23926380368097 240.13199599591664 114.50613496932513 236.7270880204565Q117.77300613496931 233.3221800449964 117.77300613496931 227.43260949284917Q117.77300613496931 221.54303894070193 114.50613496932513 218.1381309652418Q111.23926380368097 214.73322298978167 106.54601226993864 214.73322298978167Z M164.42944785276075 201.02156654806387Q169.8588957055215 201.02156654806387 173.95398773006136 203.23015550511911Q178.04907975460122 205.43874446217433 180.25766871165644 209.02770151738903V201.75776286708228H195.99386503067484V253.10745611861603H180.25766871165644V245.83751746830927Q177.95705521472394 249.426474523524 173.86196319018404 251.63506348057922Q169.76687116564418 253.84365243763443 164.33742331288343 253.84365243763443Q158.079754601227 253.84365243763443 152.92638036809817 250.57678127199026Q147.77300613496934 247.30991010634608 144.78220858895708 241.2823027443829Q141.7914110429448 235.2546953824197 141.7914110429448 227.34058495297185Q141.7914110429448 219.426474523524 144.78220858895708 213.44487943149946Q147.77300613496934 207.4632843394749 152.92638036809817 204.24242544376938Q158.079754601227 201.02156654806387 164.42944785276075 201.02156654806387ZM169.03067484662577 214.73322298978167Q164.33742331288343 214.73322298978167 161.07055214723925 218.09211869530316Q157.8036809815951 221.45101440082462 157.8036809815951 227.34058495297185Q157.8036809815951 233.2301555051191 161.07055214723925 236.68107575051786Q164.33742331288343 240.13199599591664 169.03067484662577 240.13199599591664Q173.72392638036808 240.13199599591664 176.99079754601226 236.7270880204565Q180.25766871165644 233.3221800449964 180.25766871165644 227.43260949284917Q180.25766871165644 221.54303894070193 176.99079754601226 218.1381309652418Q173.72392638036808 214.73322298978167 169.03067484662577 214.73322298978167Z M236.02453987730058 239.76389783640744V253.10745611861603H228.01840490797545Q219.4601226993865 253.10745611861603 214.67484662576686 248.92033955419885Q209.88957055214723 244.73322298978167 209.88957055214723 235.2546953824197V214.82524752965898H203.6319018404908V201.75776286708228H209.88957055214723V189.2424254437694H225.62576687116564V201.75776286708228H235.9325153374233V214.82524752965898H225.62576687116564V235.43874446217433Q225.62576687116564 237.73935795910683 226.73006134969324 238.75162789775715Q227.83435582822085 239.76389783640744 230.41104294478527 239.76389783640744Z M295.840490797546 223.10745611861603V253.10745611861603H280.1963190184049V225.22402053579395Q280.1963190184049 220.07064630266512 277.5276073619632 217.2178855664688Q274.85889570552143 214.36512483027246 270.3496932515337 214.36512483027246Q265.840490797546 214.36512483027246 263.17177914110425 217.2178855664688Q260.50306748466255 220.07064630266512 260.50306748466255 225.22402053579395V253.10745611861603H244.76687116564415V185.00929660941358H260.50306748466255V208.65960335787983Q262.8957055214724 205.2546953824197 267.0368098159509 203.2301555051191Q271.1779141104294 201.20561562781847 276.33128834355824 201.20561562781847Q285.16564417177915 201.20561562781847 290.50306748466255 207.04917391002706Q295.840490797546 212.89273219223566 295.840490797546 223.10745611861603Z M305.319018404908 187.9540818854872Q305.319018404908 184.27310029039518 307.94171779141107 181.83444998364672Q310.5644171779141 179.39579967689824 314.7055214723926 179.39579967689824Q318.7546012269938 179.39579967689824 321.3773006134969 181.83444998364672Q324.0 184.27310029039518 324.0 187.9540818854872Q324.0 191.54303894070193 321.3773006134969 193.9816892474504Q318.7546012269938 196.42033955419885 314.7055214723926 196.42033955419885Q310.5644171779141 196.42033955419885 307.94171779141107 193.9816892474504Q305.319018404908 191.54303894070193 305.319018404908 187.9540818854872ZM322.5276073619632 201.75776286708228V253.10745611861603H306.7914110429448V201.75776286708228Z"/></g></defs></svg>
+<div id="splash" aria-hidden="true"><svg viewBox="0 0 348.0 277.8"><defs><clipPath id="cl-hi"><rect x="0" y="0" width="0" height="277.8"><animate id="a1" attributeName="width" from="0" to="348.0" dur="1s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.45 0 0.15 1"/></rect></clipPath><clipPath id="cl-en"><rect x="0" y="0" width="0" height="277.8"><animate id="a2" attributeName="width" from="0" to="348.0" dur="1s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.45 0 0.15 1"/></rect></clipPath></defs><g clip-path="url(#cl-hi)"><use href="#p-hi"/></g><g clip-path="url(#cl-en)"><use href="#p-en"/></g></svg></div>
+<header id="tb"><button class="tbb" id="tl" type="button" lang="en">English</button>
+<div class="tbg"><button class="tbb" id="fsm" type="button" aria-label="A-">A&minus;</button><button class="tbb" id="fsp" type="button" aria-label="A+">A+</button></div></header>
+<main class="app">
+<section class="screen land" id="welcome">
+<div class="logo"><svg viewBox="0 0 348.0 277.8" aria-hidden="true"><use href="#p-hi"/><use href="#p-en"/></svg></div>
+<h1 class="hero-h"><span data-i="tag1"></span> <em data-i="tag2"></em></h1>
+<p class="sub" data-i="sub"></p>
+<div class="label" id="lbl" data-i="choose"></div>
+<div class="langs" role="radiogroup" aria-labelledby="lbl">
+<div class="row"><button class="lang" role="radio" data-lang="hi" lang="hi"><span><span class="name">हिन्दी</span><span class="alt">Hindi</span></span><span class="tick"><svg width="16" height="16" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.4 5 8.8 9.5 3.4"/></svg></span></button><button class="speak" data-say="hi" aria-label="हिन्दी सुनें"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg></button></div>
+<div class="row"><button class="lang" role="radio" data-lang="en" lang="en"><span><span class="name">English</span><span class="alt">अंग्रेज़ी</span></span><span class="tick"><svg width="16" height="16" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.4 5 8.8 9.5 3.4"/></svg></span></button><button class="speak" data-say="en" aria-label="Hear English"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg></button></div>
+</div>
+<p class="note" id="vnote" role="status" data-i="novoice" hidden></p>
+<button class="cta" id="go" data-i="go"></button>
+<p class="legal" data-i="legal"></p>
+</section>
+
+<section class="screen" id="login" hidden>
+<button class="bk" id="back" type="button"><span aria-hidden="true">&larr;</span>&nbsp;<span data-i="bk"></span></button>
+<div class="logo"><svg viewBox="0 0 348.0 277.8" aria-hidden="true"><use href="#p-hi"/><use href="#p-en"/></svg></div>
+<div class="stp" data-i="stpa"></div>
+<h1 data-i="login"></h1><p class="sub" data-i="loginsub"></p>
+<div class="f">
+<div class="fld"><label for="em" data-i="email"></label><input id="em" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false"></div>
+<button class="cta" id="sendlink" data-i="sendlink"></button>
+<p class="note" id="sent" role="status" hidden data-i="sentmsg"></p>
+<p class="note" id="lerr" role="alert"></p></div>
+<p class="legal" data-i="legal"></p></section>
+
+<section class="screen" id="profile" hidden>
+<button class="bk" id="pback" type="button"><span aria-hidden="true">&larr;</span>&nbsp;<span data-i="bk"></span></button>
+<div class="stp" data-i="stpb"></div>
+<h1 data-i="prof"></h1><p class="sub" data-i="psub"></p>
+<div class="f">
+<div class="fld"><label for="pn" data-i="name"></label><input id="pn" autocomplete="name"></div>
+<div class="fld"><label for="pa" data-i="age"></label><input id="pa" inputmode="numeric" maxlength="3"></div>
+<div class="fld"><label for="pcn" data-i="cname"></label><input id="pcn"></div>
+<div class="fld"><label for="pcp" data-i="cphone"></label><input id="pcp" type="tel" inputmode="numeric" maxlength="10" data-p="ex"></div>
+<label class="consent"><input id="pc" type="checkbox"><span data-i="consent"></span></label>
+<button class="cta" id="psave" data-i="save"></button><p class="note" id="perr" role="alert"></p></div></section>
+
+<section class="screen" id="home" hidden>
+<button class="bk" id="hback" type="button"><span aria-hidden="true">&larr;</span>&nbsp;<span data-i="bk"></span></button>
+<h1 id="hh"></h1><p class="sub" data-i="hsub"></p>
+<button class="mic" id="hmic" aria-label="mic"><svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+<p class="mlab" data-i="tap"></p>
+<button class="cta" id="okb" data-i="okb"></button>
+<p id="okst" role="status"></p>
+<button class="cta ghost" id="htype" data-i="htype"></button>
+<a class="cta ghost" id="callfam" href="#" hidden></a>
+<button class="cta ghost" id="fcb" data-i="fcb"></button>
+<p class="legal" data-i="legal"></p></section>
+
+<section class="screen" id="circle" hidden>
+<button class="bk" id="cback" type="button"><span aria-hidden="true">&larr;</span>&nbsp;<span data-i="bk"></span></button>
+<h1 data-i="fct"></h1><p class="sub" data-i="fcs"></p>
+<div class="box" id="cs"></div>
+<a class="cta" id="cwa" target="_blank" rel="noopener"></a>
+<a class="cta ghost" id="ccall" href="#" hidden></a>
+<p class="note" data-i="fcn"></p>
+<p class="legal" data-i="legal"></p></section>
+
+<section class="screen" id="check" hidden>
+<button class="bk" id="qback" type="button"><span aria-hidden="true">&larr;</span>&nbsp;<span data-i="bk"></span></button>
+<p id="qn"></p><div id="pbar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<h1 id="qtext"></h1>
+<button class="back" id="qlisten" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg>&nbsp;<span data-i="qlisten"></span></button>
+<div class="chips" id="chips" hidden></div>
+<div class="f" id="tbox">
+<div><p class="ql" data-i="quickl"></p><div class="quick" id="quick"></div></div>
+<textarea id="tx" rows="4" data-p="typehint" aria-label="text"></textarea>
+<button class="mic sm" id="mic" aria-label="mic"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+<p class="mlab" data-i="micl"></p>
+<p class="note" id="nomic" hidden data-i="nomic"></p><p class="note" id="mst" role="status" style="text-align:center"></p>
+<button class="cta" id="nx"></button></div>
+</section>
+
+<section class="screen" id="result" hidden>
+<button class="bk" id="rback" type="button"><span aria-hidden="true">&larr;</span>&nbsp;<span data-i="bk"></span></button>
+<div class="sev" id="sevb" role="status"></div>
+<button class="cta" id="lis"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg><span data-i="lis"></span></button>
+<div class="box"><b data-i="h1"></b><div id="why"></div></div><div class="box"><b data-i="h2"></b><div id="rhome"></div></div><div class="box"><b data-i="h3"></b><div id="warn"></div></div><div class="box"><b data-i="h4"></b><div id="prov"></div></div>
+<button class="cta ghost" id="care" data-i="care"></button>
+<a class="cta ghost" id="callfam2" href="#" hidden></a>
+<button class="back" id="again" data-i="again"></button><p class="legal" data-i="legal"></p></section>
+</main>
+<button id="sosb" hidden></button>
+<div id="sos" hidden role="alertdialog" aria-live="assertive"><div class="sosin"><div id="cd">15</div><p id="s1"></p><p id="hl" hidden></p>
+<a class="sa" id="call" href="tel:112"></a><a class="sa" id="wa" target="_blank" rel="noopener"></a><a class="sa" id="hosp" target="_blank" rel="noopener"></a><button class="sa out" id="cancel"></button></div></div>
+
+<script>
+
+var T={
+ hi:{tag:"बोलिए, हम सुनेंगे।",sub:"अपनी भाषा में बताइए कि आप कैसा महसूस कर रहे हैं, और सही अगला कदम जानिए।",choose:"भाषा चुनें",go:"आगे बढ़ें",soon:"जल्द आ रही हैं: मराठी, বাংলা, தமிழ், తెలుగు",legal:"यह स्वास्थ्य मार्गदर्शन है। यह डॉक्टर की जाँच या इलाज का विकल्प नहीं है।",next:"लॉगिन पेज अगला चरण है",nextsub:"अगले चरण में फ़ोन नंबर और OTP से लॉगिन बनेगा।",back:"वापस जाएँ",novoice:"इस डिवाइस में हिन्दी आवाज़ नहीं मिली। फ़ोन की सेटिंग्स में हिन्दी text-to-speech जोड़ें।"},
+ en:{tag:"Speak, we\u2019ll listen.",sub:"Tell us how you feel in your own language and learn the right next step.",choose:"Choose your language",go:"Continue",soon:"Coming soon: मराठी, বাংলা, தமிழ், తెలుగు",legal:"This is health guidance. It is not a diagnosis or a substitute for seeing a doctor.",next:"Login is the next page",nextsub:"The next step adds sign-in with a phone number and OTP.",back:"Go back",novoice:"No Hindi voice found on this device. Add a Hindi text-to-speech voice in your device settings."}
+};
+
+Object.assign(T.hi,{tag1:"बोलिए,",tag2:"हम सुनेंगे।",nav1:"जाँच",nav2:"आवाज़",nav3:"SOS",nav4:"भाषाएँ",signin:"साइन इन",start:"मुफ़्त शुरू करें",how:"देखें कैसे काम करता है",st1k:"रंग में सलाह",st2k:"SOS काउंटडाउन",st3k:"भाषाएँ",st4k:"आपातकालीन कॉल",k1:"आपकी जाँच",k2:"आवाज़ से जाँच",k3:"SOS टाइमलाइन",r1:"हल्की खाँसी · आज",r2:"बुखार · 3+ दिन",r3:"सीने में दर्द",r4:"सिरदर्द · आज",pg:"घर",py:"डॉक्टर",pr:"अस्पताल",von:"आवाज़ चालू",vq:"सरल सवाल",g1:"SOS दबाया",g2:"संपर्क को खबर",g3:"112 कॉल",g4:"नज़दीकी अस्पताल"});
+Object.assign(T.en,{tag1:"Speak,",tag2:"we\u2019ll listen.",nav1:"Check-in",nav2:"Voice",nav3:"SOS",nav4:"Languages",signin:"Sign in",start:"Start free",how:"See how it works",st1k:"Care levels",st2k:"SOS countdown",st3k:"Languages",st4k:"Emergency call",k1:"Your check-ins",k2:"Voice check-in",k3:"SOS timeline",r1:"Mild cough \u00b7 today",r2:"Fever \u00b7 3+ days",r3:"Chest pain",r4:"Headache \u00b7 today",pg:"Home",py:"Doctor",pr:"Hospital",von:"Voice on",vq:"simple questions",g1:"SOS pressed",g2:"Alert contact",g3:"Call 112",g4:"Nearest hospital"});
+Object.assign(T.hi,{bk:"वापस",stpa:"चरण 1 / 2",stpb:"चरण 2 / 2",ex:"जैसे: 9876543210",htype:"लिखकर बताएँ",callc:"फ़ोन करें",sosl:"SOS · तुरंत मदद",fsm:"अक्षर छोटे करें",fsp:"अक्षर बड़े करें",qn:"सवाल",nxf:"सलाह देखें",need:"पहले कुछ बताइए, या ऊपर से चुनिए।",quickl:"जल्दी चुनें, या नीचे बोलिए / लिखिए:",quick:["बुखार","खाँसी","सिरदर्द","पेट दर्द","चक्कर आना","जोड़ों में दर्द"],micl:"दबाकर बोलिए",prev:"पिछला सवाल",qlisten:"सवाल फिर सुनें"});
+Object.assign(T.en,{bk:"Back",stpa:"Step 1 of 2",stpb:"Step 2 of 2",ex:"e.g. 9876543210",htype:"Type instead",callc:"Call",sosl:"SOS \u00b7 Get help now",fsm:"Make text smaller",fsp:"Make text bigger",qn:"Question",nxf:"See advice",need:"Please tell us something first, or pick one above.",quickl:"Tap to choose quickly, or speak / type below:",quick:["Fever","Cough","Headache","Stomach pain","Dizziness","Joint pain"],micl:"Tap and speak",prev:"Previous question",qlisten:"Hear the question again"});
+var lang="hi";
+try{var s=localStorage.getItem("ss_lang");if(s==="hi"||s==="en")lang=s}catch(e){}
+function render(){
+ document.documentElement.lang=lang;
+ document.querySelectorAll("[data-i]").forEach(function(n){n.textContent=T[lang][n.getAttribute("data-i")]});
+ document.querySelectorAll(".lang").forEach(function(b){b.setAttribute("aria-checked",String(b.dataset.lang===lang))});
+}
+document.querySelectorAll(".lang").forEach(function(b){b.addEventListener("click",function(){lang=b.dataset.lang;try{localStorage.setItem("ss_lang",lang)}catch(e){}render()})});
+document.querySelectorAll(".speak").forEach(function(b){b.addEventListener("click",function(){
+ sayName(b.dataset.say);
+})});
+function sayName(k){
+ var code=k==="hi"?"hi-IN":"en-IN",text=k==="hi"?"हिन्दी":"English",note=document.getElementById("vnote");
+ note.hidden=true;
+ if(!("speechSynthesis" in window)){note.hidden=false;return}
+ function go(){
+  var vs=speechSynthesis.getVoices(),pre=code.slice(0,2);
+  var v=vs.filter(function(x){return x.lang.replace("_","-")===code})[0]||vs.filter(function(x){return x.lang.toLowerCase().indexOf(pre)===0})[0];
+  if(k==="hi"&&!v&&vs.length){note.hidden=false;return}
+  var u=new SpeechSynthesisUtterance(text);u.lang=code;if(v)u.voice=v;
+  u.onerror=function(){if(k==="hi")note.hidden=false};
+  speechSynthesis.speak(u)
+ }
+ try{
+  if(speechSynthesis.getVoices().length){go()}
+  else{var t=setTimeout(go,900);speechSynthesis.onvoiceschanged=function(){clearTimeout(t);speechSynthesis.onvoiceschanged=null;go()}}
+ }catch(e){note.hidden=false}
+}
+var ROUTE=function(){};function route(){ROUTE()}
+(function(){
+var $=function(i){return document.getElementById(i)};
+var N={hi:{login:"अपना फ़ोन नंबर डालें",loginsub:"अपना मोबाइल नंबर डालें। हम OTP भेजेंगे।",phone:"मोबाइल नंबर (10 अंक)",sendotp:"OTP भेजें (4 अंकों का कोड)",otp:"OTP डालें",otphint:"डेमो OTP: 1234",verify:"जाँचें",badph:"10 अंकों का नंबर डालें",badotp:"OTP सही नहीं है",
+prof:"आपके बारे में",psub:"आपातकाल में हम इस संपर्क को खबर देंगे।",name:"आपका नाम",age:"उम्र",cname:"आपातकालीन संपर्क का नाम",cphone:"संपर्क का मोबाइल नंबर",consent:"मैं सहमत हूँ कि मेरी स्वास्थ्य और लोकेशन जानकारी केवल मार्गदर्शन और आपातकालीन मदद के लिए इस्तेमाल होगी। इसे बेचा नहीं जाएगा।",save:"सहेजें",fill:"सारी जानकारी भरें और सहमति दें",
+hello:"नमस्ते",hsub:"नीचे के माइक को दबाएँ और बताइए कि क्या तकलीफ़ है।",tap:"बोलने के लिए दबाएँ",q:["आपको क्या तकलीफ़ है? बोलिए या लिखिए।","यह कब से है?","तकलीफ़ कितनी है?","और कुछ बताना है? नहीं तो आगे दबाएँ।"],dur:["आज से","1 से 3 दिन","3 दिन से ज़्यादा"],sevo:["हल्की","ठीक-ठाक","बहुत तेज़"],typehint:"यहाँ लिखें",nomic:"इस ब्राउज़र में बोलना काम नहीं करता। कृपया लिखें।",nx:"आगे",mic_on:"सुन रहा हूँ... बोलिए",mic_den:"माइक की अनुमति नहीं मिली। एड्रेस बार के ताले के निशान पर दबाकर माइक की अनुमति दें।",mic_none:"आवाज़ नहीं सुनाई दी। माइक दबाकर फिर बोलिए।",mic_hw:"माइक नहीं मिला। डिवाइस का माइक जाँचें।",mic_net:"बोली पहचानने के लिए इंटरनेट चाहिए। नेटवर्क जाँचें।",mic_insec:"फ़ाइल सीधे खोलने पर माइक नहीं चलता। इसे https लिंक (जैसे Vercel) से खोलें।",
+sl:{g:"हरा: घर पर ध्यान रखें",y:"पीला: 1 से 2 दिन में डॉक्टर को दिखाएँ",r:"लाल: अभी अस्पताल जाएँ"},h1:"संभावित कारण",h2:"अब क्या करें",h3:"इन लक्षणों पर तुरंत अस्पताल जाएँ",h4:"किसे दिखाएँ",care:"पास में खोजें",lis:"फिर सुनें",again:"नई जाँच",wait:"जाँच हो रही है...",
+res:{g:{why:"ये लक्षण आम तौर पर हल्की वजहों से होते हैं, जैसे थकान, मौसम बदलना या हल्का संक्रमण। यह निदान नहीं है।",home:["आराम करें और खूब पानी या तरल लें।","हल्का, ताज़ा खाना खाएँ।","बिना डॉक्टर की सलाह के कोई दवा न लें।"],warn:["साँस लेने में तकलीफ़","सीने में दर्द","बेहोशी या दौरा","तकलीफ़ तेज़ी से बढ़ना"],prov:"फ़ार्मासिस्ट या सामान्य डॉक्टर",mq:"pharmacy near me"},y:{why:"इन लक्षणों की वजह डॉक्टर से जाँच कराकर ही पता चल सकती है। यह निदान नहीं है।",home:["आराम करें और तरल लेते रहें।","लक्षण और समय लिख लें ताकि डॉक्टर को बता सकें।","बिना डॉक्टर की सलाह के कोई दवा न लें।"],warn:["साँस लेने में तकलीफ़","सीने में दर्द","तेज़ बुखार जो न उतरे","बेहोशी या दौरा"],prov:"सामान्य डॉक्टर (क्लिनिक)",mq:"general physician clinic near me"}},
+s1:"आपके संपर्क को खबर देने और मदद बुलाने के लिए तैयार रहें। रद्द करना हो तो रद्द करें दबाएँ।",s2:"अभी नीचे के बटन दबाएँ।",cancel:"रद्द करें",wa:"संपर्क को WhatsApp भेजें",call:"112 पर कॉल करें",hosp:"नज़दीकी अस्पताल",msg:"मुझे मदद चाहिए। मेरी लोकेशन: ",hl:"आप अकेले नहीं हैं। Tele-MANAS हेल्पलाइन 14416 पर बात करें, या किसी भरोसेमंद व्यक्ति को अभी फ़ोन करें।"},
+en:{login:"Enter your phone number",loginsub:"Enter your mobile number. We will send an OTP.",phone:"Mobile number (10 digits)",sendotp:"Send OTP (a 4 digit code)",otp:"Enter OTP",otphint:"Demo OTP: 1234",verify:"Verify",badph:"Enter a 10 digit number",badotp:"That OTP is not right",
+prof:"About you",psub:"In an emergency we will alert this contact.",name:"Your name",age:"Age",cname:"Emergency contact name",cphone:"Contact mobile number",consent:"I agree that my health and location information is used only for guidance and emergency help. It will not be sold.",save:"Save",fill:"Fill everything and give consent",
+hello:"Hello",hsub:"Press the big mic below and tell us what is wrong.",tap:"Tap to speak",q:["What is troubling you? Speak or type.","Since when?","How bad is it?","Anything else? If not, tap Next."],dur:["Since today","1 to 3 days","More than 3 days"],sevo:["Mild","Moderate","Very severe"],typehint:"Type here",nomic:"Speaking does not work in this browser. Please type.",nx:"Next",mic_on:"Listening... please speak",mic_den:"Microphone permission was denied. Tap the lock icon in the address bar and allow the microphone.",mic_none:"I did not hear anything. Tap the mic and speak again.",mic_hw:"No microphone found. Check your device microphone.",mic_net:"Speech recognition needs internet. Check your network.",mic_insec:"The mic does not work when the file is opened directly. Open it from an https link (for example on Vercel).",
+sl:{g:"Green: manage at home",y:"Yellow: see a doctor in 1 to 2 days",r:"Red: go to a hospital now"},h1:"What this might be",h2:"What to do now",h3:"Go to a hospital at once if you get",h4:"Who to see",care:"Find care nearby",lis:"Listen again",again:"New check-in",wait:"Checking...",
+res:{g:{why:"These symptoms often come from minor causes such as tiredness, weather change or a mild infection. This is not a diagnosis.",home:["Rest and drink plenty of fluids.","Eat light, fresh food.","Do not take any medicine without a doctor\u2019s advice."],warn:["Trouble breathing","Chest pain","Fainting or a seizure","Symptoms getting worse fast"],prov:"Pharmacist or general physician",mq:"pharmacy near me"},y:{why:"Only a doctor can find the cause of these symptoms. This is not a diagnosis.",home:["Rest and keep drinking fluids.","Note your symptoms and timing to tell the doctor.","Do not take any medicine without a doctor\u2019s advice."],warn:["Trouble breathing","Chest pain","High fever that does not come down","Fainting or a seizure"],prov:"General physician (clinic)",mq:"general physician clinic near me"}},
+s1:"Get ready to alert your contact and call for help. Tap Cancel if this is a mistake.",s2:"Tap the buttons below now.",cancel:"Cancel",wa:"WhatsApp my contact",call:"Call 112",hosp:"Nearest hospital",msg:"I need help. My location: ",hl:"You are not alone. Talk to the Tele-MANAS helpline on 14416, or call someone you trust right now."}};
+Object.assign(T.hi,N.hi);Object.assign(T.en,N.en);
+Object.assign(T.hi,{login:"\u0905\u092a\u0928\u093e \u0908\u092e\u0947\u0932 \u0921\u093e\u0932\u0947\u0902",loginsub:"\u0939\u092e \u0906\u092a\u0915\u0947 \u0908\u092e\u0947\u0932 \u092a\u0930 \u0938\u093e\u0907\u0928-\u0907\u0928 \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u0947\u0902\u0917\u0947\u0964 \u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0915\u0940 \u091c\u093c\u0930\u0942\u0930\u0924 \u0928\u0939\u0940\u0902\u0964",email:"\u0908\u092e\u0947\u0932",sendlink:"\u0938\u093e\u0907\u0928-\u0907\u0928 \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u0947\u0902",sentmsg:"\u0906\u092a\u0915\u0947 \u0908\u092e\u0947\u0932 \u092a\u0930 \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u093e \u0917\u092f\u093e \u0939\u0948\u0964 \u0907\u0938\u0940 \u092b\u093c\u094b\u0928 \u092a\u0930 \u0908\u092e\u0947\u0932 \u0916\u094b\u0932\u0947\u0902 \u0914\u0930 Sign in \u0926\u092c\u093e\u090f\u0901\u0964 \u0908\u092e\u0947\u0932 \u0928 \u0926\u093f\u0916\u0947 \u0924\u094b \u0938\u094d\u092a\u0948\u092e \u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u0926\u0947\u0916\u0947\u0902\u0964",bademail:"\u0938\u0939\u0940 \u0908\u092e\u0947\u0932 \u0921\u093e\u0932\u0947\u0902",sbfail:"\u091c\u0941\u095c\u0928\u0947 \u092e\u0947\u0902 \u0938\u092e\u0938\u094d\u092f\u093e \u0906\u0908\u0964 \u0907\u0902\u091f\u0930\u0928\u0947\u091f \u0926\u0947\u0916\u0915\u0930 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0930\u0947\u0902\u0964",ratelim:"\u092c\u0939\u0941\u0924 \u091c\u093c\u094d\u092f\u093e\u0926\u093e \u0915\u094b\u0936\u093f\u0936\u0947\u0902 \u0939\u0941\u0908\u0902\u0964 \u0915\u0941\u091b \u092e\u093f\u0928\u091f \u092c\u093e\u0926 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0930\u0947\u0902\u0964"});
+Object.assign(T.en,{login:"Enter your email",loginsub:"We will send a sign-in link to your email. No password needed.",email:"Email",sendlink:"Send sign-in link",sentmsg:"We sent a link to your email. Open the email on this same phone and tap Sign in. If you do not see it, check Spam.",bademail:"Enter a valid email",sbfail:"Could not connect. Check your internet and try again.",ratelim:"Too many tries. Please wait a few minutes and try again."});
+Object.assign(T.hi,{okb:"\u2714 \u092e\u0948\u0902 \u0920\u0940\u0915 \u0939\u0942\u0901",fcb:"\u092b\u093c\u0948\u092e\u093f\u0932\u0940 \u0915\u0947\u092f\u0930 \u0938\u0930\u094d\u0915\u0932",okdone:"\u0920\u0940\u0915 \u0939\u0948, \u0906\u091c \u0915\u093e \u2018\u092e\u0948\u0902 \u0920\u0940\u0915 \u0939\u0942\u0901\u2019 \u0926\u0930\u094d\u091c \u0939\u094b \u0917\u092f\u093e\u0964 \u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b \u092d\u0947\u091c\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f \u0915\u0947\u092f\u0930 \u0938\u0930\u094d\u0915\u0932 \u0916\u094b\u0932\u0947\u0902\u0964",fct:"\u092b\u093c\u0948\u092e\u093f\u0932\u0940 \u0915\u0947\u092f\u0930 \u0938\u0930\u094d\u0915\u0932",fcs:"\u0906\u092a\u0915\u0947 \u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b \u092f\u0939 \u0926\u093f\u0916\u0947\u0917\u093e:",fcv:"\u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u0947 \u0932\u093f\u090f \u0938\u093e\u0930\u093e\u0902\u0936",lt:"\u0906\u091c \u0915\u0940 \u0938\u094d\u0925\u093f\u0924\u093f",okt:"\u092e\u0948\u0902 \u0920\u0940\u0915 \u0939\u0942\u0901",nook:"\u0906\u091c \u0905\u092d\u0940 \u0924\u0915 \u0928\u0939\u0940\u0902 \u092c\u0924\u093e\u092f\u093e",lastchk:"\u092a\u093f\u091b\u0932\u0940 \u091c\u093e\u0901\u091a",nochk:"\u0905\u092d\u0940 \u0915\u094b\u0908 \u091c\u093e\u0901\u091a \u0928\u0939\u0940\u0902",sh:{g:"\u0939\u0930\u093e",y:"\u092a\u0940\u0932\u093e",r:"\u0932\u093e\u0932"},nosos:"\u0915\u092d\u0940 \u0928\u0939\u0940\u0902 \u0926\u092c\u093e\u092f\u093e",hasloc:"\u0932\u094b\u0915\u0947\u0936\u0928 \u0926\u0947\u0916\u0947\u0902",noloc:"\u0932\u094b\u0915\u0947\u0936\u0928 \u0928\u0939\u0940\u0902 \u092e\u093f\u0932\u0940",today:"\u0906\u091c",cwa:"\u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b WhatsApp \u092a\u0930 \u092d\u0947\u091c\u0947\u0902",famhead:"\u0938\u0947\u0939\u0924 Saathi \u0905\u092a\u0921\u0947\u091f:",fcn:"\u092a\u094d\u0930\u094b\u091f\u094b\u091f\u093e\u0907\u092a: \u0905\u092d\u0940 \u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b \u092f\u0939 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 WhatsApp \u0938\u0902\u0926\u0947\u0936 \u0938\u0947 \u091c\u093e\u0924\u0940 \u0939\u0948\u0964 \u0932\u093e\u0907\u0935 \u092b\u093c\u0948\u092e\u093f\u0932\u0940 \u0910\u092a \u0938\u0930\u094d\u0935\u0930 \u0915\u0947 \u0938\u093e\u0925 \u0906\u090f\u0917\u093e\u0964"});
+Object.assign(T.en,{okb:"\u2714 I\u2019m OK today",fcb:"Family Care Circle",okdone:"Saved: you are OK today. Open Family Care Circle to send it to your family.",fct:"Family Care Circle",fcs:"This is what your family sees:",fcv:"Family summary for",lt:"Today",okt:"I\u2019m OK",nook:"Not checked in yet today",lastchk:"Last check-in",nochk:"No check-in yet",sh:{g:"Green",y:"Yellow",r:"Red"},nosos:"Never pressed",hasloc:"View location",noloc:"Location not available",today:"Today",cwa:"Send to family on WhatsApp",famhead:"Sehat Saathi update:",fcn:"Prototype: for now your family gets this as a WhatsApp message. A live family app view needs a server and comes later."});
+function t(k){return T[lang][k]}
+var U=null;try{U=JSON.parse(localStorage.getItem("ss_user"))}catch(e){}
+function save(){try{localStorage.setItem("ss_user",JSON.stringify(U))}catch(e){}}
+var SBU="https://deskvahdaikqrbaxlqbv.supabase.co",SBK="sb_publishable_DhDbVeK1m6XmJC9AwNYeWw_k9klNyI2",sb=null;
+try{sb=window.supabase.createClient(SBU,SBK,{auth:{flowType:"pkce",persistSession:true,detectSessionInUrl:true}})}catch(e){}
+function onSess(s,go){
+ if(s){if(U&&U.uid&&U.uid!==s.user.id)U=null;U=U||{};U.ok=1;U.uid=s.user.id;U.email=s.user.email;save();
+  if(go){var h=U.name?"home":"profile";if(location.hash==="#"+h)route();else location.hash=h}else route()}
+ else if(U&&U.ok){U.ok=0;save();route()}}
+if(sb){sb.auth.onAuthStateChange(function(ev,s){
+ if((ev==="SIGNED_IN"||ev==="INITIAL_SESSION")&&s){var go=window.CB||location.hash==="#login";window.CB=false;onSess(s,go)}
+ else if(ev==="INITIAL_SESSION"||ev==="SIGNED_OUT"){onSess(null)}})}
+function log(k,v){if(!U)return;U.lg=U.lg||{};if(v===null)delete U.lg[k];else U.lg[k]=v;save()}
+function tstr(ts){var d=new Date(ts),n=new Date(),lc=lang==="hi"?"hi-IN":"en-IN";return(d.toDateString()===n.toDateString()?t("today"):d.toLocaleDateString(lc,{day:"numeric",month:"short"}))+", "+d.toLocaleTimeString(lc,{hour:"2-digit",minute:"2-digit"})}
+function circ(){if(!U||!U.ok)return;var g=U.lg||{},rows=[],msg=[t("famhead")+" "+(U.name||"")],today=g.ok&&new Date(g.ok).toDateString()===new Date().toDateString();
+ var okv=today?"\u2714 "+t("okt")+" ("+tstr(g.ok)+")":t("nook");rows.push([t("lt"),okv]);msg.push(t("lt")+": "+okv);
+ var cv=g.chk?t("sh")[g.chk.k]+" ("+tstr(g.chk.ts)+")":t("nochk");rows.push([t("lastchk"),cv]);msg.push(t("lastchk")+": "+cv);
+ var sv=g.sos?tstr(g.sos.ts):t("nosos"),loc=g.sos&&g.sos.la?"https://maps.google.com/?q="+g.sos.la+","+g.sos.lo:"";
+ rows.push(["SOS",sv,loc,g.sos]);msg.push("SOS: "+sv+(g.sos?(loc?" - "+loc:" - "+t("noloc")):""));
+ var box=$("cs");box.innerHTML="";var h=document.createElement("b");h.textContent=t("fcv")+" "+(U.name||"");box.appendChild(h);
+ rows.forEach(function(r){var d=document.createElement("div");d.className="cr";var b=document.createElement("b");b.textContent=r[0];d.appendChild(b);d.appendChild(document.createTextNode(r[1]));
+  if(r[3]){d.appendChild(document.createTextNode(" \u00b7 "));if(r[2]){var a=document.createElement("a");a.href=r[2];a.target="_blank";a.rel="noopener";a.textContent=t("hasloc");d.appendChild(a)}else d.appendChild(document.createTextNode(t("noloc")))}
+  box.appendChild(d)});
+ $("cwa").textContent=t("cwa");$("cwa").href="https://wa.me/91"+(U.cp||"")+"?text="+encodeURIComponent(msg.join("\n"))}
+var R0=render;render=function(){R0();document.querySelectorAll("[data-p]").forEach(function(n){n.placeholder=t(n.dataset.p)});$("hh").textContent=t("hello")+(U&&U.name?", "+U.name:"");
+ $("cancel").textContent=t("cancel");$("wa").textContent=t("wa");$("call").textContent=t("call");$("hosp").textContent=t("hosp");$("s1").textContent=t("s1");$("hl").textContent=t("hl");
+ $("sosb").textContent=t("sosl");$("fsm").setAttribute("aria-label",t("fsm"));$("fsp").setAttribute("aria-label",t("fsp"));
+ $("hmic").setAttribute("aria-label",t("tap"));$("mic").setAttribute("aria-label",t("micl"));$("tl").textContent=lang==="hi"?"English":"\u0939\u093f\u0928\u094d\u0926\u0940";
+ fam();circ();if(!$("check").hidden&&!S.busy)step(S.i,true)};
+function fam(){var ok=U&&U.cp;["callfam","callfam2","ccall"].forEach(function(id){var a=$(id);a.hidden=!ok;if(ok){a.href="tel:"+U.cp;a.textContent=t("callc")+(U.cn?" "+U.cn:"")}})}
+function speak(x){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(x);u.rate=.85;u.lang=lang==="hi"?"hi-IN":"en-IN";var v=speechSynthesis.getVoices().filter(function(a){return a.lang.replace("_","-")===u.lang})[0];if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){}}
+var SR=window.SpeechRecognition||window.webkitSpeechRecognition,rec=null;
+function listen(box,btn){var st=$("mst");st.textContent="";
+ if(!SR){$("nomic").hidden=false;return}
+ if(location.protocol==="file:"){st.textContent=t("mic_insec");return}
+ if(rec){rec.stop();return}
+ try{speechSynthesis.cancel()}catch(e){}
+ var got=false;rec=new SR();rec.lang=lang==="hi"?"hi-IN":"en-IN";rec.interimResults=true;rec.continuous=false;
+ rec.onstart=function(){st.textContent=t("mic_on")};
+ rec.onresult=function(e){got=true;var x="";for(var i=0;i<e.results.length;i++)x+=e.results[i][0].transcript;box.value=x};
+ rec.onerror=function(e){var m={"not-allowed":"mic_den","service-not-allowed":"mic_den","audio-capture":"mic_hw","network":"mic_net"}[e.error]||"mic_none";st.textContent=t(m)};
+ rec.onend=function(){rec=null;btn.classList.remove("on");if(st.textContent===t("mic_on"))st.textContent=got?"":t("mic_none")};
+ btn.classList.add("on");try{rec.start()}catch(e){rec=null;btn.classList.remove("on")}}
+var RED=/chest pain|can.?t breathe|trouble breathing|difficulty breathing|short(ness)? of breath|face droop|slurred|arm weak|heavy bleeding|bleeding (a lot|heavily)|seizure|unconscious|passed out|fainted|allergic reaction|throat (swelling|closing)|poison|overdose|help me|infant.*(fever|breath)|pregnan.*(bleed|severe pain)|सीने में दर्द|छाती में दर्द|साँस.*(नहीं|तकलीफ|दिक्कत)|सांस.*(नहीं|तकलीफ|दिक्कत)|लकवा|मुँह टेढ़ा|मुंह टेढ़ा|लड़खड़|बहुत खून|खून बह|दौरा|बेहोश|ज़हर|जहर|बचाओ/i;
+var SELF=/suicid|kill myself|end my life|self.?harm|आत्महत्या|मरना चाहत|जान दे/i;
+var S={i:0,a:{}},ST=[{k:"sym",x:1},{k:"dur",o:"dur"},{k:"sev",o:"sevo"},{k:"more",x:1}];
+function step(i,keep){S.i=i;S.busy=0;var d=ST[i],q=t("q")[i];$("qtext").textContent=q;$("qn").textContent=t("qn")+" "+(i+1)+" / 4";
+ var pb=$("pbar").children;for(var j=0;j<pb.length;j++)pb[j].className=j<=i?"on":"";
+ $("nx").textContent=t(i===3?"nxf":"nx");$("tbox").hidden=!d.x;$("chips").hidden=!!d.x;$("quick").parentNode.hidden=i!==0;
+ if(!keep){speak(q);$("tx").value=typeof S.a[d.k]==="string"?S.a[d.k]:"";$("mst").textContent=""}
+ var qk=$("quick");qk.innerHTML="";t("quick").forEach(function(l){var b=document.createElement("button");b.type="button";b.className="qk";b.textContent=l;b.setAttribute("aria-pressed","false");
+  b.onclick=function(){var tx=$("tx"),v=tx.value.trim(),has=v.indexOf(l)>-1;if(has){tx.value=v.replace(l,"").replace(/^[,\s]+|[,\s]+$/g,"").replace(/,\s*,/g,",");b.setAttribute("aria-pressed","false")}else{tx.value=v?v+", "+l:l;b.setAttribute("aria-pressed","true")}$("mst").textContent=""};qk.appendChild(b)});
+ if(d.o){var c=$("chips");c.innerHTML="";t(d.o).forEach(function(l,j){var b=document.createElement("button");b.className="chip";b.textContent=l;b.onclick=function(){S.a[d.k]=j;step(i+1)};c.appendChild(b)})}}
+$("qlisten").onclick=function(){speak(t("q")[S.i])};
+$("qback").onclick=function(){if(rec)rec.stop();if(S.i>0)step(S.i-1);else location.hash="home"};
+$("htype").onclick=function(){S.auto=0;location.hash="check"};
+function toWelcome(){location.hash="";history.replaceState(null,"",location.pathname);route()}
+$("pback").onclick=toWelcome;$("hback").onclick=toWelcome;$("rback").onclick=function(){location.hash="home"};
+$("mic").onclick=function(){listen($("tx"),$("mic"))};
+$("hmic").onclick=function(){S.auto=1;location.hash="check"};
+$("nx").onclick=function(){var d=ST[S.i],v=$("tx").value.trim();if(rec)rec.stop();if(S.i===0&&!v){$("mst").textContent=t("need");return}S.a[d.k]=v;
+ if(RED.test(v)||SELF.test(v))return sos(SELF.test(v));if(S.i===3)finish();else step(S.i+1)};
+async function finish(){S.busy=1;$("qtext").textContent=t("wait");$("tbox").hidden=true;var r=null;
+ try{var c=new AbortController();setTimeout(function(){c.abort()},7000);var x=await fetch("/api/triage",{method:"POST",headers:{"Content-Type":"application/json"},signal:c.signal,body:JSON.stringify({lang:lang,age:U.age,symptoms:S.a.sym,duration:t("dur")[S.a.dur],severity:t("sevo")[S.a.sev],more:S.a.more||""})});if(x.ok)r=await x.json()}catch(e){}
+ if(!r||!r.severity){var all=S.a.sym+" "+(S.a.more||""),lv=(S.a.sev===2||S.a.dur===2||(S.a.sev>=1&&/fever|vomit|infection|pus|बुखार|उल्टी|मवाद/i.test(all)))?"y":"g",x2=t("res")[lv];r={severity:lv==="g"?"green":"yellow",why:x2.why,home:x2.home,warn:x2.warn,provider:x2.prov,maps_query:x2.mq}}
+ if(r.emergency)return sos(false);showRes(r)}
+function showRes(r){var k={green:"g",yellow:"y",red:"r"}[r.severity]||"y",L=function(a){return[].concat(a||[]).map(function(x){return"\u2022 "+x}).join("<br>")},e=function(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML};
+ $("sevb").className="sev "+k;$("sevb").textContent=({g:"\u2714 ",y:"\u26A0 ",r:"\u2716 "})[k]+t("sl")[k];$("why").textContent=r.why;$("rhome").innerHTML=L([].concat(r.home).map(e));$("warn").innerHTML=L([].concat(r.warn).map(e));$("prov").textContent=r.provider;S.r=r;log("chk",{k:k,ts:Date.now()});location.hash="result";
+ speak([t("sl")[k],r.why].concat(r.home).join(". "))}
+$("care").onclick=function(){window.open("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent((S.r&&S.r.maps_query)||"general physician near me"),"_blank")};
+$("lis").onclick=function(){var r=S.r;speak([t("sl")[{green:"g",yellow:"y",red:"r"}[r.severity]||"y"],r.why].concat(r.home).join(". "))};
+$("again").onclick=function(){location.hash="home"};
+var tm=null;
+var sp=0;
+function sos(self){var n=15,cd=$("cd");sp=1;log("sos",{ts:Date.now()});$("sos").hidden=false;$("hl").hidden=!self;$("s1").textContent=t("s1");cd.textContent=n;clearInterval(tm);speak(t("s1"));
+ tm=setInterval(function(){n--;cd.textContent=n>0?n:"!";if(n<=0){sp=0;clearInterval(tm);$("s1").textContent=t("s2");speak(t("s2"))}},1000);
+ var base="https://wa.me/91"+((U&&U.cp)||"")+"?text=";$("wa").href=base+encodeURIComponent(t("msg"));$("hosp").href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent("emergency hospital near me");
+ try{navigator.geolocation.getCurrentPosition(function(p){$("wa").href=base+encodeURIComponent(t("msg")+"https://maps.google.com/?q="+p.coords.latitude+","+p.coords.longitude);if(U&&U.lg&&U.lg.sos)log("sos",{ts:U.lg.sos.ts,la:p.coords.latitude,lo:p.coords.longitude})})}catch(e){}}
+$("sosb").onclick=function(){sos(false)};
+$("wa").addEventListener("click",function(){sp=0});
+$("cancel").onclick=function(){if(sp){sp=0;log("sos",null)}clearInterval(tm);$("sos").hidden=true;try{speechSynthesis.cancel()}catch(e){}};
+$("okb").onclick=function(){log("ok",Date.now());$("okst").textContent=t("okdone");speak(t("okdone"))};
+$("fcb").onclick=function(){location.hash="circle"};
+$("cback").onclick=function(){location.hash="home"};
+$("sendlink").onclick=async function(){var e=$("em").value.trim().toLowerCase();
+ if(!/^\S+@\S+\.\S+$/.test(e)){$("lerr").textContent=t("bademail");return}
+ if(!sb){$("lerr").textContent=t("sbfail");return}
+ $("lerr").textContent="";$("sendlink").disabled=true;
+ var r;try{r=await sb.auth.signInWithOtp({email:e,options:{emailRedirectTo:location.origin+"/"}})}catch(x){r={error:x}}
+ $("sendlink").disabled=false;
+ if(r.error){$("lerr").textContent=(r.error.status===429||/rate|limit/i.test(r.error.message||""))?t("ratelim"):t("sbfail");return}
+ $("sent").hidden=false};
+$("psave").onclick=function(){var n=$("pn").value.trim(),a=$("pa").value.replace(/\D/g,""),cn=$("pcn").value.trim(),cp=$("pcp").value.replace(/\D/g,"");
+ if(!n||!a||!cn||cp.length!==10||!$("pc").checked){$("perr").textContent=t("fill");return}U.name=n;U.age=a;U.cn=cn;U.cp=cp;save();render();location.hash="home"};
+var AUTH={profile:1,home:1,check:1,result:1,circle:1},SC=["welcome","login","profile","home","check","result","circle"],PREV="";
+ROUTE=function(){var h=location.hash.slice(1);if(SC.indexOf(h)<0||h==="welcome")h="login";if(AUTH[h]&&!(U&&U.ok))h="login";if(h==="login"&&U&&U.ok)h=U.name?"home":"profile";
+ if(h==="result"&&!S.r)h="home";SC.forEach(function(s){$(s).hidden=s!==h});$("sosb").hidden=!AUTH[h];
+ if(h==="check"&&PREV!=="check"){S.a={};step(0);S.auto=0}$("tl").hidden=h==="result";if(h==="home")$("okst").textContent="";fam();circ();window.scrollTo(0,0);PREV=h};
+})();
+document.getElementById("go").addEventListener("click",function(){location.hash="login"});
+document.getElementById("back").addEventListener("click",function(){location.hash="";history.replaceState(null,"",location.pathname);route()});
+
+window.addEventListener("hashchange",route);
+var FS=1;try{FS=Math.min(3,Math.max(1,+localStorage.getItem("ss_fs")||1))}catch(e){}
+function applyFs(){document.documentElement.setAttribute("data-fs",FS);document.getElementById("fsm").setAttribute("aria-disabled",String(FS<=1));document.getElementById("fsp").setAttribute("aria-disabled",String(FS>=3));try{localStorage.setItem("ss_fs",FS)}catch(e){}}
+document.getElementById("fsm").addEventListener("click",function(){if(FS>1){FS--;applyFs()}});
+document.getElementById("fsp").addEventListener("click",function(){if(FS<3){FS++;applyFs()}});
+document.getElementById("tl").addEventListener("click",function(){lang=lang==="hi"?"en":"hi";try{localStorage.setItem("ss_lang",lang)}catch(e){}render()});
+applyFs();
+render();route();
+window.addEventListener("load",function(){setTimeout(function(){window.scrollTo(0,0)},60)});
+(function(){
+ var sp=document.getElementById("splash"),fin=false;
+ function done(){if(fin)return;fin=true;sp.classList.add("out");document.body.classList.add("ready")}
+ if(location.hash==="#login"||window.CB){sp.style.display="none";document.body.classList.add("ready");return}
+ sp.addEventListener("click",done);
+ function full(){sp.querySelectorAll("rect").forEach(function(r){r.setAttribute("width","348.0")})}
+ function start(){
+  if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){full();setTimeout(done,900);return}
+  try{document.getElementById("a1").beginElement();setTimeout(function(){document.getElementById("a2").beginElement()},500)}catch(e){full()}
+  setTimeout(done,2800);
+ }
+ if(document.readyState==="complete")start();else window.addEventListener("load",start);
+})();
+</script>
+</body>
+</html>
