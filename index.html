@@ -106,6 +106,22 @@ input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(
 .box b{display:block;color:var(--accent);margin-bottom:.3rem;font:700 1.15rem var(--sans)}
 
 #back,#hback,#pback{display:none}
+/* family dashboard (for the person checking on someone) */
+.fv{text-align:left}.fv h1{text-align:left;margin-top:.4rem}.fv .sub{margin:0;max-width:none}
+.pc{background:var(--card);border:2px solid var(--line);border-radius:1.2rem;padding:1rem 1.1rem;margin-top:1rem}
+.pc.alert{border-color:var(--red);background:rgba(255,155,140,.12)}
+.ph{display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem}
+.av{flex:none;width:3rem;height:3rem;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:700 1.3rem var(--sans)}
+.pn{flex:1;min-width:0;font:700 1.25rem/1.25 var(--sans);overflow-wrap:anywhere}
+.stc{flex:none;padding:.3rem .8rem;border-radius:999px;font:700 .95rem var(--sans);border:2px solid}
+.stc.g{color:#E8FAA6;border-color:var(--accent);background:rgba(200,244,50,.14)}
+.stc.y{color:var(--amber);border-color:var(--amber);background:rgba(255,209,102,.14)}
+.stc.r{color:var(--red);border-color:var(--red);background:rgba(255,155,140,.16)}
+.pr{display:flex;justify-content:space-between;gap:1rem;padding:.6rem 0;border-top:1px solid rgba(255,255,255,.14);font-size:1rem;line-height:1.5}
+.pr span:first-child{color:var(--muted);flex:none}.pr span:last-child{text-align:right}
+.pf{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:.4rem;font-size:.9rem;color:var(--muted)}
+.lk{background:none;border:0;padding:0 .2rem;min-height:2.6rem;color:var(--muted);text-decoration:underline;font:inherit;cursor:pointer}
+.sosl{margin:.5rem 0 0;font:700 1.1rem/1.4 var(--sans);color:var(--red)}
 /* family care circle */
 .cr{padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.18)}.cr:last-child{border:0;padding-bottom:0}
 .cr b{margin-bottom:.1rem;font-size:1rem;color:var(--muted)}
@@ -171,8 +187,7 @@ input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(
 <div class="fld"><label for="pcn" data-i="cname"></label><input id="pcn"></div>
 <div class="fld"><label for="pcp" data-i="cphone"></label><input id="pcp" type="tel" inputmode="numeric" maxlength="10" data-p="ex"></div>
 <label class="consent"><input id="pc" type="checkbox"><span data-i="consent"></span></label>
-<button class="cta" id="psave" data-i="save"></button>
-<button class="cta ghost" id="kidb" data-i="kidb"></button><p class="note" id="perr" role="alert"></p></div></section>
+<button class="cta" id="psave" data-i="save"></button><p class="note" id="perr" role="alert"></p></div></section>
 
 <section class="screen" id="home" hidden>
 <button class="bk" id="hback" type="button"><span aria-hidden="true">&larr;</span>&nbsp;<span data-i="bk"></span></button>
@@ -195,10 +210,22 @@ input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(
 <div class="box" id="codes" hidden></div>
 <a class="cta ghost" id="ccall" href="#" hidden></a>
 </div>
+<p class="note" id="cerr" role="alert"></p>
+<p class="legal" data-i="legal"></p></section>
+
+<section class="screen" id="role" hidden>
+<h1 data-i="roleh"></h1><p class="sub" data-i="roles"></p>
+<button class="cta" id="rp" data-i="rp"></button>
+<button class="cta ghost" id="rc" data-i="rc"></button>
+<p class="legal" data-i="legal"></p></section>
+
+<section class="screen fv" id="fview" hidden>
+<h1 data-i="fvh"></h1><p class="sub" data-i="fvs"></p>
+<div id="plist"></div>
 <div class="box" id="joinbox"><b data-i="joinh"></b>
 <div class="f"><div class="fld"><label for="jc" data-i="joinl"></label><input id="jc" maxlength="6" autocapitalize="characters" autocomplete="off" spellcheck="false"></div>
 <button class="cta ghost" id="joinb" data-i="joinb"></button><p class="note" id="jerr" role="alert"></p></div></div>
-<div id="plist"></div>
+<button class="back" id="fout" data-i="fout"></button>
 <p class="legal" data-i="legal"></p></section>
 
 <section class="screen" id="check" hidden>
@@ -284,8 +311,10 @@ sl:{g:"Green: manage at home",y:"Yellow: see a doctor in 1 to 2 days",r:"Red: go
 res:{g:{why:"These symptoms often come from minor causes such as tiredness, weather change or a mild infection. This is not a diagnosis.",home:["Rest and drink plenty of fluids.","Eat light, fresh food.","Do not take any medicine without a doctor\u2019s advice."],warn:["Trouble breathing","Chest pain","Fainting or a seizure","Symptoms getting worse fast"],prov:"Pharmacist or general physician",mq:"pharmacy near me"},y:{why:"Only a doctor can find the cause of these symptoms. This is not a diagnosis.",home:["Rest and keep drinking fluids.","Note your symptoms and timing to tell the doctor.","Do not take any medicine without a doctor\u2019s advice."],warn:["Trouble breathing","Chest pain","High fever that does not come down","Fainting or a seizure"],prov:"General physician (clinic)",mq:"general physician clinic near me"}},
 s1:"Get ready to alert your contact and call for help. Tap Cancel if this is a mistake.",s2:"Tap the buttons below now.",cancel:"Cancel",wa:"WhatsApp my contact",call:"Call 112",hosp:"Nearest hospital",msg:"I need help. My location: ",hl:"You are not alone. Talk to the Tele-MANAS helpline on 14416, or call someone you trust right now."}};
 Object.assign(T.hi,N.hi);Object.assign(T.en,N.en);
-Object.assign(T.hi,{mkcode:"परिवार के सदस्य को जोड़ने का कोड बनाएँ",codeh:"आपके कोड",coden:"यह कोड अपने बेटे या बेटी को बताएँ। वे अपने फ़ोन पर साइन इन करके कोड डालेंगे।",cwait:"इंतज़ार में",cjoin:"जुड़ गए",joinh:"क्या आप परिवार के सदस्य हैं?",joinl:"माता-पिता का कोड डालें",joinb:"जुड़ें",badcode:"कोड सही नहीं है या पहले इस्तेमाल हो चुका है।",nofam:"अभी कोई जुड़ा नहीं है। माता-पिता से कोड माँगिए।",watch:"आप इन्हें देख रहे हैं",sosnow:"⚠ SOS दबाया गया",unl:"हटाएँ",kidb:"मैं परिवार का सदस्य हूँ",nosync:"पर परिवार तक नहीं पहुँचा।",live:"लाइव"});
-Object.assign(T.en,{mkcode:"Create a code to add a family member",codeh:"Your invite codes",coden:"Give this code to your son or daughter. They sign in on their phone and enter it.",cwait:"Waiting",cjoin:"Joined",joinh:"Are you a family member?",joinl:"Enter the parent’s code",joinb:"Join",badcode:"The code is wrong or already used.",nofam:"No one linked yet. Ask your parent for a code.",watch:"You are watching",sosnow:"⚠ SOS pressed",unl:"Remove",kidb:"I’m a family member",nosync:"But it did not reach your family.",live:"Live"});
+Object.assign(T.hi,{roleh:"आप कौन हैं?",roles:"अपना चुनिए। बाद में बदल सकते हैं।",rp:"मुझे अपनी सेहत के लिए मदद चाहिए",rc:"मैं अपने परिवार के सदस्य की खबर लेना चाहता हूँ",fvh:"आपका परिवार",fvs:"यहाँ उनकी ताज़ा स्थिति दिखती है। नई जानकारी अपने-आप आती है।",fout:"साइन आउट",okshort:"आज ठीक हैं",nokshort:"आज कुछ नहीं बताया",sosshort:"SOS",lastok:"आख़िरी “मैं ठीक हूँ”",upd:"अपडेट"});
+Object.assign(T.en,{roleh:"Who are you?",roles:"Choose one. You can change it later.",rp:"I need health help myself",rc:"I want to check on a family member",fvh:"Your family",fvs:"Their latest status shows here. New updates appear by themselves.",fout:"Sign out",okshort:"OK today",nokshort:"No update today",sosshort:"SOS",lastok:"Last “I’m OK”",upd:"Updated"});
+Object.assign(T.hi,{mkcode:"परिवार के सदस्य को जोड़ने का कोड बनाएँ",codeh:"आपके कोड",coden:"यह कोड अपने बेटे या बेटी को बताएँ। वे अपने फ़ोन पर साइन इन करके कोड डालेंगे।",cwait:"इंतज़ार में",cjoin:"जुड़ गए",joinh:"किसी को जोड़ें",joinl:"उनका कोड डालें",joinb:"जुड़ें",badcode:"कोड सही नहीं है या पहले इस्तेमाल हो चुका है।",nofam:"अभी कोई जुड़ा नहीं है। माता-पिता से कोड माँगिए।",watch:"आप इन्हें देख रहे हैं",sosnow:"⚠ SOS दबाया गया",unl:"हटाएँ",kidb:"मैं परिवार का सदस्य हूँ",nosync:"पर परिवार तक नहीं पहुँचा।",live:"लाइव"});
+Object.assign(T.en,{mkcode:"Create a code to add a family member",codeh:"Your invite codes",coden:"Give this code to your son or daughter. They sign in on their phone and enter it.",cwait:"Waiting",cjoin:"Joined",joinh:"Add someone",joinl:"Enter their code",joinb:"Join",badcode:"The code is wrong or already used.",nofam:"No one linked yet. Ask your parent for a code.",watch:"You are watching",sosnow:"⚠ SOS pressed",unl:"Remove",kidb:"I’m a family member",nosync:"But it did not reach your family.",live:"Live"});
 Object.assign(T.hi,{login:"\u0905\u092a\u0928\u093e \u0908\u092e\u0947\u0932 \u0921\u093e\u0932\u0947\u0902",loginsub:"\u0939\u092e \u0906\u092a\u0915\u0947 \u0908\u092e\u0947\u0932 \u092a\u0930 \u0938\u093e\u0907\u0928-\u0907\u0928 \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u0947\u0902\u0917\u0947\u0964 \u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0915\u0940 \u091c\u093c\u0930\u0942\u0930\u0924 \u0928\u0939\u0940\u0902\u0964",email:"\u0908\u092e\u0947\u0932",sendlink:"\u0938\u093e\u0907\u0928-\u0907\u0928 \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u0947\u0902",sentmsg:"\u0906\u092a\u0915\u0947 \u0908\u092e\u0947\u0932 \u092a\u0930 \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u093e \u0917\u092f\u093e \u0939\u0948\u0964 \u0907\u0938\u0940 \u092b\u093c\u094b\u0928 \u092a\u0930 \u0908\u092e\u0947\u0932 \u0916\u094b\u0932\u0947\u0902 \u0914\u0930 Sign in \u0926\u092c\u093e\u090f\u0901\u0964 \u0908\u092e\u0947\u0932 \u0928 \u0926\u093f\u0916\u0947 \u0924\u094b \u0938\u094d\u092a\u0948\u092e \u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u0926\u0947\u0916\u0947\u0902\u0964",bademail:"\u0938\u0939\u0940 \u0908\u092e\u0947\u0932 \u0921\u093e\u0932\u0947\u0902",sbfail:"\u091c\u0941\u095c\u0928\u0947 \u092e\u0947\u0902 \u0938\u092e\u0938\u094d\u092f\u093e \u0906\u0908\u0964 \u0907\u0902\u091f\u0930\u0928\u0947\u091f \u0926\u0947\u0916\u0915\u0930 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0930\u0947\u0902\u0964",ratelim:"\u092c\u0939\u0941\u0924 \u091c\u093c\u094d\u092f\u093e\u0926\u093e \u0915\u094b\u0936\u093f\u0936\u0947\u0902 \u0939\u0941\u0908\u0902\u0964 \u0915\u0941\u091b \u092e\u093f\u0928\u091f \u092c\u093e\u0926 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0930\u0947\u0902\u0964"});
 Object.assign(T.en,{login:"Enter your email",loginsub:"We will send a sign-in link to your email. No password needed.",email:"Email",sendlink:"Send sign-in link",sentmsg:"We sent a link to your email. Open the email on this same phone and tap Sign in. If you do not see it, check Spam.",bademail:"Enter a valid email",sbfail:"Could not connect. Check your internet and try again.",ratelim:"Too many tries. Please wait a few minutes and try again."});
 Object.assign(T.hi,{okb:"\u2714 \u092e\u0948\u0902 \u0920\u0940\u0915 \u0939\u0942\u0901",fcb:"\u092b\u093c\u0948\u092e\u093f\u0932\u0940 \u0915\u0947\u092f\u0930 \u0938\u0930\u094d\u0915\u0932",okdone:"\u0920\u0940\u0915 \u0939\u0948, \u0906\u091c \u0915\u093e \u2018\u092e\u0948\u0902 \u0920\u0940\u0915 \u0939\u0942\u0901\u2019 \u0926\u0930\u094d\u091c \u0939\u094b \u0917\u092f\u093e\u0964 \u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b \u092d\u0947\u091c\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f \u0915\u0947\u092f\u0930 \u0938\u0930\u094d\u0915\u0932 \u0916\u094b\u0932\u0947\u0902\u0964",fct:"\u092b\u093c\u0948\u092e\u093f\u0932\u0940 \u0915\u0947\u092f\u0930 \u0938\u0930\u094d\u0915\u0932",fcs:"\u0906\u092a\u0915\u0947 \u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b \u092f\u0939 \u0926\u093f\u0916\u0947\u0917\u093e:",fcv:"\u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u0947 \u0932\u093f\u090f \u0938\u093e\u0930\u093e\u0902\u0936",lt:"\u0906\u091c \u0915\u0940 \u0938\u094d\u0925\u093f\u0924\u093f",okt:"\u092e\u0948\u0902 \u0920\u0940\u0915 \u0939\u0942\u0901",nook:"\u0906\u091c \u0905\u092d\u0940 \u0924\u0915 \u0928\u0939\u0940\u0902 \u092c\u0924\u093e\u092f\u093e",lastchk:"\u092a\u093f\u091b\u0932\u0940 \u091c\u093e\u0901\u091a",nochk:"\u0905\u092d\u0940 \u0915\u094b\u0908 \u091c\u093e\u0901\u091a \u0928\u0939\u0940\u0902",sh:{g:"\u0939\u0930\u093e",y:"\u092a\u0940\u0932\u093e",r:"\u0932\u093e\u0932"},nosos:"\u0915\u092d\u0940 \u0928\u0939\u0940\u0902 \u0926\u092c\u093e\u092f\u093e",hasloc:"\u0932\u094b\u0915\u0947\u0936\u0928 \u0926\u0947\u0916\u0947\u0902",noloc:"\u0932\u094b\u0915\u0947\u0936\u0928 \u0928\u0939\u0940\u0902 \u092e\u093f\u0932\u0940",today:"\u0906\u091c",cwa:"\u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b WhatsApp \u092a\u0930 \u092d\u0947\u091c\u0947\u0902",famhead:"\u0938\u0947\u0939\u0924 Saathi \u0905\u092a\u0921\u0947\u091f:",fcn:"\u092a\u094d\u0930\u094b\u091f\u094b\u091f\u093e\u0907\u092a: \u0905\u092d\u0940 \u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b \u092f\u0939 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 WhatsApp \u0938\u0902\u0926\u0947\u0936 \u0938\u0947 \u091c\u093e\u0924\u0940 \u0939\u0948\u0964 \u0932\u093e\u0907\u0935 \u092b\u093c\u0948\u092e\u093f\u0932\u0940 \u0910\u092a \u0938\u0930\u094d\u0935\u0930 \u0915\u0947 \u0938\u093e\u0925 \u0906\u090f\u0917\u093e\u0964"});
@@ -297,7 +326,7 @@ var SBU="https://deskvahdaikqrbaxlqbv.supabase.co",SBK="sb_publishable_DhDbVeK1m
 try{sb=window.supabase.createClient(SBU,SBK,{auth:{flowType:"pkce",persistSession:true,detectSessionInUrl:true}})}catch(e){}
 function onSess(s,go){
  if(s){if(U&&U.uid&&U.uid!==s.user.id)U=null;U=U||{};U.ok=1;U.uid=s.user.id;U.email=s.user.email;save();
-  sub();if(go){var h=U.role==="child"?"circle":(U.name?"home":"profile");if(location.hash==="#"+h)route();else location.hash=h}else route()}
+  sub();if(go){var h=landing();if(location.hash==="#"+h)route();else location.hash=h}else route()}
  else if(U&&U.ok){U.ok=0;save();route()}}
 if(sb){sb.auth.onAuthStateChange(function(ev,s){
  if((ev==="SIGNED_IN"||ev==="INITIAL_SESSION")&&s){var go=window.CB||location.hash==="#login";window.CB=false;onSess(s,go)}
@@ -313,35 +342,40 @@ function tstr(ts){var d=new Date(ts),n=new Date(),lc=lang==="hi"?"hi-IN":"en-IN"
 var LE="",ch=null;
 function genCode(){var c="ABCDEFGHJKMNPQRSTUVWXYZ23456789",o="",a=new Uint8Array(6);crypto.getRandomValues(a);for(var i=0;i<6;i++)o+=c[a[i]%c.length];return o}
 function mkEl(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
-function sub(){if(!sb||ch||!U||!U.uid)return;try{ch=sb.channel("se").on("postgres_changes",{event:"*",schema:"public",table:"status_events"},function(){if(!$("circle").hidden)loadFam()}).subscribe()}catch(e){ch=null}}
-setInterval(function(){if(!$("circle").hidden)loadFam()},30000);
+function landing(){return U&&U.role==="child"?"fview":(U&&(U.role||U.name))?(U.name?"home":"profile"):"role"}
+function ferr(m){var e=$("circle").hidden?$("jerr"):$("cerr");if(e)e.textContent=m}
+function sub(){if(!sb||ch||!U||!U.uid)return;try{ch=sb.channel("se").on("postgres_changes",{event:"*",schema:"public",table:"status_events"},function(){if(!$("circle").hidden||!$("fview").hidden)loadFam()}).subscribe()}catch(e){ch=null}}
+setInterval(function(){if(!$("circle").hidden||!$("fview").hidden)loadFam()},30000);
 async function loadFam(){if(!sb||!U||!U.uid)return;
  try{var a=await sb.from("family_links").select("id,parent_id,parent_name,child_id,invite_code");
- if(a.error){$("jerr").textContent=t("sbfail")+" ("+a.error.message+")";return}
+ if(a.error){ferr(t("sbfail")+" ("+a.error.message+")");return}
  var mine=a.data.filter(function(x){return x.parent_id===U.uid}),kids=a.data.filter(function(x){return x.child_id===U.uid}),ev=[];
  if(kids.length){var e=await sb.from("status_events").select("parent_id,kind,level,lat,lng,created_at").in("parent_id",kids.map(function(x){return x.parent_id})).order("created_at",{ascending:false}).limit(300);if(!e.error)ev=e.data}
- renderCodes(mine);renderParents(kids,ev)}catch(x){$("jerr").textContent=t("sbfail")}}
+ renderCodes(mine);renderParents(kids,ev)}catch(x){ferr(t("sbfail"))}}
 function renderCodes(mine){var b=$("codes");b.innerHTML="";b.hidden=!mine.length;if(!mine.length)return;
  b.appendChild(mkEl("b",null,t("codeh")));b.appendChild(mkEl("p","note",t("coden")));
  mine.forEach(function(l){var d=mkEl("div","cr");var c=mkEl("div",null,l.invite_code);c.style.cssText="font:700 1.8rem var(--sans);letter-spacing:.2em";d.appendChild(c);
   d.appendChild(document.createTextNode(l.child_id?"\u2714 "+t("cjoin"):t("cwait")));
   var r=mkEl("button","back",t("unl"));r.onclick=async function(){await sb.from("family_links").delete().eq("id",l.id);loadFam()};d.appendChild(r);b.appendChild(d)})}
 function renderParents(kids,ev){var box=$("plist");box.innerHTML="";
- if(!kids.length){if(U.role==="child")box.appendChild(mkEl("p","note",t("nofam")));return}
- box.appendChild(mkEl("p","ql",t("watch")));
- kids.forEach(function(l){var me=ev.filter(function(x){return x.parent_id===l.parent_id}),
+ if(!kids.length){var e0=mkEl("div","pc");e0.appendChild(mkEl("p","note",t("nofam")));box.appendChild(e0);return}
+ kids.forEach(function(l){
+  var me=ev.filter(function(x){return x.parent_id===l.parent_id}),
   ok=me.filter(function(x){return x.kind==="ok"})[0],ck=me.filter(function(x){return x.kind==="checkin"})[0],ss=me.filter(function(x){return x.kind==="sos"}),so=ss[0],
-  T0=function(x){return new Date(x.created_at).getTime()},d=mkEl("div","box");
-  if(so&&Date.now()-T0(so)<864e5)d.appendChild(mkEl("div","sev r",t("sosnow")+" "+tstr(T0(so))));
-  d.appendChild(mkEl("b",null,l.parent_name||""));
-  var okt=ok&&new Date(ok.created_at).toDateString()===new Date().toDateString();
-  function row(lab,val,loc){var r=mkEl("div","cr");r.appendChild(mkEl("b",null,lab));r.appendChild(document.createTextNode(val));
-   if(loc){r.appendChild(document.createTextNode(" \u00b7 "));var a=mkEl("a",null,t("hasloc"));a.href=loc;a.target="_blank";a.rel="noopener";r.appendChild(a)}d.appendChild(r)}
-  row(t("lt"),okt?"\u2714 "+t("okt")+" ("+tstr(T0(ok))+")":t("nook"));
-  row(t("lastchk"),ck?t("sh")[ck.level]+" ("+tstr(T0(ck))+")":t("nochk"));
-  var lo=so&&ss.filter(function(x){return x.lat!=null&&Math.abs(T0(x)-T0(so))<6e5})[0];
-  row("SOS",so?tstr(T0(so)):t("nosos"),lo?"https://maps.google.com/?q="+lo.lat+","+lo.lng:"");
-  var rm=mkEl("button","back",t("unl"));rm.onclick=async function(){await sb.from("family_links").delete().eq("id",l.id);loadFam()};d.appendChild(rm);box.appendChild(d)})}
+  T0=function(x){return new Date(x.created_at).getTime()},
+  sosOn=so&&Date.now()-T0(so)<864e5,okT=ok&&new Date(ok.created_at).toDateString()===new Date().toDateString(),
+  lv=sosOn?"r":(okT?"g":"y"),lbl=sosOn?t("sosshort"):(okT?t("okshort"):t("nokshort")),
+  d=mkEl("div","pc"+(sosOn?" alert":"")),h=mkEl("div","ph");
+  h.appendChild(mkEl("div","av",(l.parent_name||"?").trim().charAt(0).toUpperCase()));h.appendChild(mkEl("div","pn",l.parent_name||""));h.appendChild(mkEl("span","stc "+lv,lbl));d.appendChild(h);
+  if(sosOn){d.appendChild(mkEl("p","sosl",t("sosnow")+" \u00b7 "+tstr(T0(so))));
+   var lo=ss.filter(function(x){return x.lat!=null&&Math.abs(T0(x)-T0(so))<6e5})[0];
+   if(lo){var a=mkEl("a","cta","\ud83d\udccd "+t("hasloc"));a.href="https://maps.google.com/?q="+lo.lat+","+lo.lng;a.target="_blank";a.rel="noopener";d.appendChild(a)}}
+  function row(lab,val){var r=mkEl("div","pr");r.appendChild(mkEl("span",null,lab));r.appendChild(mkEl("span",null,val));d.appendChild(r)}
+  row(t("lastok"),ok?tstr(T0(ok)):"\u2014");
+  row(t("lastchk"),ck?t("sh")[ck.level]+" \u00b7 "+tstr(T0(ck)):t("nochk"));
+  row("SOS",so?tstr(T0(so)):t("nosos"));
+  var f=mkEl("div","pf"),nw=new Date();f.appendChild(mkEl("span",null,"\u25cf "+t("live")+" \u00b7 "+t("upd")+" "+nw.toLocaleTimeString(lang==="hi"?"hi-IN":"en-IN",{hour:"2-digit",minute:"2-digit"})));
+  var rm=mkEl("button","lk",t("unl"));rm.onclick=async function(){await sb.from("family_links").delete().eq("id",l.id);loadFam()};f.appendChild(rm);d.appendChild(f);box.appendChild(d)})}
 function circ(){if(!U||!U.ok)return;$("mine").hidden=U.role==="child";var g=U.lg||{},rows=[],msg=[t("famhead")+" "+(U.name||"")],today=g.ok&&new Date(g.ok).toDateString()===new Date().toDateString();
  var okv=today?"\u2714 "+t("okt")+" ("+tstr(g.ok)+")":t("nook");rows.push([t("lt"),okv]);msg.push(t("lt")+": "+okv);
  var cv=g.chk?t("sh")[g.chk.k]+" ("+tstr(g.chk.ts)+")":t("nochk");rows.push([t("lastchk"),cv]);msg.push(t("lastchk")+": "+cv);
@@ -412,12 +446,14 @@ $("cancel").onclick=function(){if(sp){sp=0;log("sos",null);SX.dead=1;delDb(SX.id
 $("okb").onclick=function(){log("ok",Date.now());$("okst").textContent=t("okdone");speak(t("okdone"));push("ok").then(function(id){if(!id)$("okst").textContent=t("okdone")+" "+t("nosync")+(LE?" ("+LE+")":"")})};
 $("fcb").onclick=function(){location.hash="circle"};
 $("cback").onclick=function(){location.hash="home"};
-$("mkcode").onclick=async function(){$("jerr").textContent="";if(!sb||!U.uid){$("jerr").textContent=t("sbfail");return}
+$("mkcode").onclick=async function(){$("cerr").textContent="";if(!sb||!U.uid){$("cerr").textContent=t("sbfail");return}
  var r;for(var i=0;i<3;i++){r=await sb.from("family_links").insert({parent_id:U.uid,parent_name:U.name||"",invite_code:genCode()});if(!r.error||r.error.code!=="23505")break}
- if(r.error){$("jerr").textContent=t("sbfail")+" ("+r.error.message+")";return}loadFam()};
+ if(r.error){$("cerr").textContent=t("sbfail")+" ("+r.error.message+")";return}loadFam()};
 $("joinb").onclick=async function(){var c=$("jc").value.trim().toUpperCase();$("jerr").textContent="";if(c.length!==6||!sb){$("jerr").textContent=t("badcode");return}
  var r=await sb.rpc("join_family",{code:c});if(r.error){$("jerr").textContent=t("badcode");return}$("jc").value="";loadFam()};
-$("kidb").onclick=function(){U.role="child";U.name=U.name||(U.email||"").split("@")[0];save();render();location.hash="circle"};
+$("rp").onclick=function(){U.role="parent";save();location.hash=U.name?"home":"profile"};
+$("rc").onclick=function(){U.role="child";U.name=U.name||(U.email||"").split("@")[0];save();location.hash="fview"};
+$("fout").onclick=async function(){try{await sb.auth.signOut();sb.removeAllChannels()}catch(e){}ch=null;U={};save();location.hash="login";route()};
 $("sendlink").onclick=async function(){var e=$("em").value.trim().toLowerCase();
  if(!/^\S+@\S+\.\S+$/.test(e)){$("lerr").textContent=t("bademail");return}
  if(!sb){$("lerr").textContent=t("sbfail");return}
@@ -428,10 +464,10 @@ $("sendlink").onclick=async function(){var e=$("em").value.trim().toLowerCase();
  $("sent").hidden=false};
 $("psave").onclick=function(){var n=$("pn").value.trim(),a=$("pa").value.replace(/\D/g,""),cn=$("pcn").value.trim(),cp=$("pcp").value.replace(/\D/g,"");
  if(!n||!a||!cn||cp.length!==10||!$("pc").checked){$("perr").textContent=t("fill");return}U.name=n;U.age=a;U.cn=cn;U.cp=cp;save();render();location.hash="home"};
-var AUTH={profile:1,home:1,check:1,result:1,circle:1},SC=["welcome","login","profile","home","check","result","circle"],PREV="";
-ROUTE=function(){var h=location.hash.slice(1);if(SC.indexOf(h)<0||h==="welcome")h="login";if(AUTH[h]&&!(U&&U.ok))h="login";if(h==="login"&&U&&U.ok)h=U.name?"home":"profile";
- if(h==="result"&&!S.r)h="home";SC.forEach(function(s){$(s).hidden=s!==h});$("sosb").hidden=!AUTH[h];
- if(h==="check"&&PREV!=="check"){S.a={};step(0);S.auto=0}$("tl").hidden=h==="result";if(h==="home")$("okst").textContent="";fam();circ();if(h==="circle"){loadFam();sub()}window.scrollTo(0,0);PREV=h};
+var AUTH={profile:1,home:1,check:1,result:1,circle:1,role:1,fview:1},SC=["welcome","login","profile","home","check","result","circle","role","fview"],PREV="";
+ROUTE=function(){var h=location.hash.slice(1);if(SC.indexOf(h)<0||h==="welcome")h="login";if(AUTH[h]&&!(U&&U.ok))h="login";if(h==="login"&&U&&U.ok)h=landing();
+ if(h==="result"&&!S.r)h="home";SC.forEach(function(s){$(s).hidden=s!==h});$("sosb").hidden=!AUTH[h]||h==="fview"||h==="role";
+ if(h==="check"&&PREV!=="check"){S.a={};step(0);S.auto=0}$("tl").hidden=h==="result";if(h==="home")$("okst").textContent="";fam();circ();if(h==="circle"||h==="fview"){loadFam();sub()}window.scrollTo(0,0);PREV=h};
 })();
 document.getElementById("go").addEventListener("click",function(){location.hash="login"});
 document.getElementById("back").addEventListener("click",function(){location.hash="";history.replaceState(null,"",location.pathname);route()});
