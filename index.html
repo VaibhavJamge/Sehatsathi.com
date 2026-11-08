@@ -171,7 +171,8 @@ input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(
 <div class="fld"><label for="pcn" data-i="cname"></label><input id="pcn"></div>
 <div class="fld"><label for="pcp" data-i="cphone"></label><input id="pcp" type="tel" inputmode="numeric" maxlength="10" data-p="ex"></div>
 <label class="consent"><input id="pc" type="checkbox"><span data-i="consent"></span></label>
-<button class="cta" id="psave" data-i="save"></button><p class="note" id="perr" role="alert"></p></div></section>
+<button class="cta" id="psave" data-i="save"></button>
+<button class="cta ghost" id="kidb" data-i="kidb"></button><p class="note" id="perr" role="alert"></p></div></section>
 
 <section class="screen" id="home" hidden>
 <button class="bk" id="hback" type="button"><span aria-hidden="true">&larr;</span>&nbsp;<span data-i="bk"></span></button>
@@ -188,10 +189,16 @@ input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(
 <section class="screen" id="circle" hidden>
 <button class="bk" id="cback" type="button"><span aria-hidden="true">&larr;</span>&nbsp;<span data-i="bk"></span></button>
 <h1 data-i="fct"></h1><p class="sub" data-i="fcs"></p>
+<div id="mine">
 <div class="box" id="cs"></div>
-<a class="cta" id="cwa" target="_blank" rel="noopener"></a>
+<button class="cta" id="mkcode" data-i="mkcode"></button>
+<div class="box" id="codes" hidden></div>
 <a class="cta ghost" id="ccall" href="#" hidden></a>
-<p class="note" data-i="fcn"></p>
+</div>
+<div class="box" id="joinbox"><b data-i="joinh"></b>
+<div class="f"><div class="fld"><label for="jc" data-i="joinl"></label><input id="jc" maxlength="6" autocapitalize="characters" autocomplete="off" spellcheck="false"></div>
+<button class="cta ghost" id="joinb" data-i="joinb"></button><p class="note" id="jerr" role="alert"></p></div></div>
+<div id="plist"></div>
 <p class="legal" data-i="legal"></p></section>
 
 <section class="screen" id="check" hidden>
@@ -277,6 +284,8 @@ sl:{g:"Green: manage at home",y:"Yellow: see a doctor in 1 to 2 days",r:"Red: go
 res:{g:{why:"These symptoms often come from minor causes such as tiredness, weather change or a mild infection. This is not a diagnosis.",home:["Rest and drink plenty of fluids.","Eat light, fresh food.","Do not take any medicine without a doctor\u2019s advice."],warn:["Trouble breathing","Chest pain","Fainting or a seizure","Symptoms getting worse fast"],prov:"Pharmacist or general physician",mq:"pharmacy near me"},y:{why:"Only a doctor can find the cause of these symptoms. This is not a diagnosis.",home:["Rest and keep drinking fluids.","Note your symptoms and timing to tell the doctor.","Do not take any medicine without a doctor\u2019s advice."],warn:["Trouble breathing","Chest pain","High fever that does not come down","Fainting or a seizure"],prov:"General physician (clinic)",mq:"general physician clinic near me"}},
 s1:"Get ready to alert your contact and call for help. Tap Cancel if this is a mistake.",s2:"Tap the buttons below now.",cancel:"Cancel",wa:"WhatsApp my contact",call:"Call 112",hosp:"Nearest hospital",msg:"I need help. My location: ",hl:"You are not alone. Talk to the Tele-MANAS helpline on 14416, or call someone you trust right now."}};
 Object.assign(T.hi,N.hi);Object.assign(T.en,N.en);
+Object.assign(T.hi,{mkcode:"परिवार के सदस्य को जोड़ने का कोड बनाएँ",codeh:"आपके कोड",coden:"यह कोड अपने बेटे या बेटी को बताएँ। वे अपने फ़ोन पर साइन इन करके कोड डालेंगे।",cwait:"इंतज़ार में",cjoin:"जुड़ गए",joinh:"क्या आप परिवार के सदस्य हैं?",joinl:"माता-पिता का कोड डालें",joinb:"जुड़ें",badcode:"कोड सही नहीं है या पहले इस्तेमाल हो चुका है।",nofam:"अभी कोई जुड़ा नहीं है। माता-पिता से कोड माँगिए।",watch:"आप इन्हें देख रहे हैं",sosnow:"⚠ SOS दबाया गया",unl:"हटाएँ",kidb:"मैं परिवार का सदस्य हूँ",nosync:"पर परिवार तक नहीं पहुँचा।",live:"लाइव"});
+Object.assign(T.en,{mkcode:"Create a code to add a family member",codeh:"Your invite codes",coden:"Give this code to your son or daughter. They sign in on their phone and enter it.",cwait:"Waiting",cjoin:"Joined",joinh:"Are you a family member?",joinl:"Enter the parent’s code",joinb:"Join",badcode:"The code is wrong or already used.",nofam:"No one linked yet. Ask your parent for a code.",watch:"You are watching",sosnow:"⚠ SOS pressed",unl:"Remove",kidb:"I’m a family member",nosync:"But it did not reach your family.",live:"Live"});
 Object.assign(T.hi,{login:"\u0905\u092a\u0928\u093e \u0908\u092e\u0947\u0932 \u0921\u093e\u0932\u0947\u0902",loginsub:"\u0939\u092e \u0906\u092a\u0915\u0947 \u0908\u092e\u0947\u0932 \u092a\u0930 \u0938\u093e\u0907\u0928-\u0907\u0928 \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u0947\u0902\u0917\u0947\u0964 \u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0915\u0940 \u091c\u093c\u0930\u0942\u0930\u0924 \u0928\u0939\u0940\u0902\u0964",email:"\u0908\u092e\u0947\u0932",sendlink:"\u0938\u093e\u0907\u0928-\u0907\u0928 \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u0947\u0902",sentmsg:"\u0906\u092a\u0915\u0947 \u0908\u092e\u0947\u0932 \u092a\u0930 \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u093e \u0917\u092f\u093e \u0939\u0948\u0964 \u0907\u0938\u0940 \u092b\u093c\u094b\u0928 \u092a\u0930 \u0908\u092e\u0947\u0932 \u0916\u094b\u0932\u0947\u0902 \u0914\u0930 Sign in \u0926\u092c\u093e\u090f\u0901\u0964 \u0908\u092e\u0947\u0932 \u0928 \u0926\u093f\u0916\u0947 \u0924\u094b \u0938\u094d\u092a\u0948\u092e \u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u0926\u0947\u0916\u0947\u0902\u0964",bademail:"\u0938\u0939\u0940 \u0908\u092e\u0947\u0932 \u0921\u093e\u0932\u0947\u0902",sbfail:"\u091c\u0941\u095c\u0928\u0947 \u092e\u0947\u0902 \u0938\u092e\u0938\u094d\u092f\u093e \u0906\u0908\u0964 \u0907\u0902\u091f\u0930\u0928\u0947\u091f \u0926\u0947\u0916\u0915\u0930 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0930\u0947\u0902\u0964",ratelim:"\u092c\u0939\u0941\u0924 \u091c\u093c\u094d\u092f\u093e\u0926\u093e \u0915\u094b\u0936\u093f\u0936\u0947\u0902 \u0939\u0941\u0908\u0902\u0964 \u0915\u0941\u091b \u092e\u093f\u0928\u091f \u092c\u093e\u0926 \u092b\u093f\u0930 \u0915\u094b\u0936\u093f\u0936 \u0915\u0930\u0947\u0902\u0964"});
 Object.assign(T.en,{login:"Enter your email",loginsub:"We will send a sign-in link to your email. No password needed.",email:"Email",sendlink:"Send sign-in link",sentmsg:"We sent a link to your email. Open the email on this same phone and tap Sign in. If you do not see it, check Spam.",bademail:"Enter a valid email",sbfail:"Could not connect. Check your internet and try again.",ratelim:"Too many tries. Please wait a few minutes and try again."});
 Object.assign(T.hi,{okb:"\u2714 \u092e\u0948\u0902 \u0920\u0940\u0915 \u0939\u0942\u0901",fcb:"\u092b\u093c\u0948\u092e\u093f\u0932\u0940 \u0915\u0947\u092f\u0930 \u0938\u0930\u094d\u0915\u0932",okdone:"\u0920\u0940\u0915 \u0939\u0948, \u0906\u091c \u0915\u093e \u2018\u092e\u0948\u0902 \u0920\u0940\u0915 \u0939\u0942\u0901\u2019 \u0926\u0930\u094d\u091c \u0939\u094b \u0917\u092f\u093e\u0964 \u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b \u092d\u0947\u091c\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f \u0915\u0947\u092f\u0930 \u0938\u0930\u094d\u0915\u0932 \u0916\u094b\u0932\u0947\u0902\u0964",fct:"\u092b\u093c\u0948\u092e\u093f\u0932\u0940 \u0915\u0947\u092f\u0930 \u0938\u0930\u094d\u0915\u0932",fcs:"\u0906\u092a\u0915\u0947 \u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b \u092f\u0939 \u0926\u093f\u0916\u0947\u0917\u093e:",fcv:"\u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u0947 \u0932\u093f\u090f \u0938\u093e\u0930\u093e\u0902\u0936",lt:"\u0906\u091c \u0915\u0940 \u0938\u094d\u0925\u093f\u0924\u093f",okt:"\u092e\u0948\u0902 \u0920\u0940\u0915 \u0939\u0942\u0901",nook:"\u0906\u091c \u0905\u092d\u0940 \u0924\u0915 \u0928\u0939\u0940\u0902 \u092c\u0924\u093e\u092f\u093e",lastchk:"\u092a\u093f\u091b\u0932\u0940 \u091c\u093e\u0901\u091a",nochk:"\u0905\u092d\u0940 \u0915\u094b\u0908 \u091c\u093e\u0901\u091a \u0928\u0939\u0940\u0902",sh:{g:"\u0939\u0930\u093e",y:"\u092a\u0940\u0932\u093e",r:"\u0932\u093e\u0932"},nosos:"\u0915\u092d\u0940 \u0928\u0939\u0940\u0902 \u0926\u092c\u093e\u092f\u093e",hasloc:"\u0932\u094b\u0915\u0947\u0936\u0928 \u0926\u0947\u0916\u0947\u0902",noloc:"\u0932\u094b\u0915\u0947\u0936\u0928 \u0928\u0939\u0940\u0902 \u092e\u093f\u0932\u0940",today:"\u0906\u091c",cwa:"\u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b WhatsApp \u092a\u0930 \u092d\u0947\u091c\u0947\u0902",famhead:"\u0938\u0947\u0939\u0924 Saathi \u0905\u092a\u0921\u0947\u091f:",fcn:"\u092a\u094d\u0930\u094b\u091f\u094b\u091f\u093e\u0907\u092a: \u0905\u092d\u0940 \u092a\u0930\u093f\u0935\u093e\u0930 \u0915\u094b \u092f\u0939 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 WhatsApp \u0938\u0902\u0926\u0947\u0936 \u0938\u0947 \u091c\u093e\u0924\u0940 \u0939\u0948\u0964 \u0932\u093e\u0907\u0935 \u092b\u093c\u0948\u092e\u093f\u0932\u0940 \u0910\u092a \u0938\u0930\u094d\u0935\u0930 \u0915\u0947 \u0938\u093e\u0925 \u0906\u090f\u0917\u093e\u0964"});
@@ -288,14 +297,52 @@ var SBU="https://deskvahdaikqrbaxlqbv.supabase.co",SBK="sb_publishable_DhDbVeK1m
 try{sb=window.supabase.createClient(SBU,SBK,{auth:{flowType:"pkce",persistSession:true,detectSessionInUrl:true}})}catch(e){}
 function onSess(s,go){
  if(s){if(U&&U.uid&&U.uid!==s.user.id)U=null;U=U||{};U.ok=1;U.uid=s.user.id;U.email=s.user.email;save();
-  if(go){var h=U.name?"home":"profile";if(location.hash==="#"+h)route();else location.hash=h}else route()}
+  sub();if(go){var h=U.role==="child"?"circle":(U.name?"home":"profile");if(location.hash==="#"+h)route();else location.hash=h}else route()}
  else if(U&&U.ok){U.ok=0;save();route()}}
 if(sb){sb.auth.onAuthStateChange(function(ev,s){
  if((ev==="SIGNED_IN"||ev==="INITIAL_SESSION")&&s){var go=window.CB||location.hash==="#login";window.CB=false;onSess(s,go)}
  else if(ev==="INITIAL_SESSION"||ev==="SIGNED_OUT"){onSess(null)}})}
+function push(kind,level,la,lo){
+ if(!sb||!U||!U.uid){LE=!U||!U.uid?"not signed in":"no connection";return Promise.resolve(null)}
+ try{return sb.from("status_events").insert({parent_id:U.uid,kind:kind,level:level||null,lat:la==null?null:la,lng:lo==null?null:lo}).select("id").single().then(function(r){if(r.error){LE=r.error.message||"error";return null}LE="";return r.data.id},function(x){LE=String(x&&x.message||x);return null})}catch(e){return Promise.resolve(null)}}
+function delDb(ids){if(sb&&ids.length){try{sb.from("status_events").delete().in("id",ids).then(function(){},function(){})}catch(e){}}}
+var SX={n:0,ids:[],dead:0};
+function trackSos(cur,pr){pr.then(function(id){if(!id)return;if(SX.n===cur&&!SX.dead)SX.ids.push(id);else delDb([id])})}
 function log(k,v){if(!U)return;U.lg=U.lg||{};if(v===null)delete U.lg[k];else U.lg[k]=v;save()}
 function tstr(ts){var d=new Date(ts),n=new Date(),lc=lang==="hi"?"hi-IN":"en-IN";return(d.toDateString()===n.toDateString()?t("today"):d.toLocaleDateString(lc,{day:"numeric",month:"short"}))+", "+d.toLocaleTimeString(lc,{hour:"2-digit",minute:"2-digit"})}
-function circ(){if(!U||!U.ok)return;var g=U.lg||{},rows=[],msg=[t("famhead")+" "+(U.name||"")],today=g.ok&&new Date(g.ok).toDateString()===new Date().toDateString();
+var LE="",ch=null;
+function genCode(){var c="ABCDEFGHJKMNPQRSTUVWXYZ23456789",o="",a=new Uint8Array(6);crypto.getRandomValues(a);for(var i=0;i<6;i++)o+=c[a[i]%c.length];return o}
+function mkEl(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function sub(){if(!sb||ch||!U||!U.uid)return;try{ch=sb.channel("se").on("postgres_changes",{event:"*",schema:"public",table:"status_events"},function(){if(!$("circle").hidden)loadFam()}).subscribe()}catch(e){ch=null}}
+setInterval(function(){if(!$("circle").hidden)loadFam()},30000);
+async function loadFam(){if(!sb||!U||!U.uid)return;
+ try{var a=await sb.from("family_links").select("id,parent_id,parent_name,child_id,invite_code");
+ if(a.error){$("jerr").textContent=t("sbfail")+" ("+a.error.message+")";return}
+ var mine=a.data.filter(function(x){return x.parent_id===U.uid}),kids=a.data.filter(function(x){return x.child_id===U.uid}),ev=[];
+ if(kids.length){var e=await sb.from("status_events").select("parent_id,kind,level,lat,lng,created_at").in("parent_id",kids.map(function(x){return x.parent_id})).order("created_at",{ascending:false}).limit(300);if(!e.error)ev=e.data}
+ renderCodes(mine);renderParents(kids,ev)}catch(x){$("jerr").textContent=t("sbfail")}}
+function renderCodes(mine){var b=$("codes");b.innerHTML="";b.hidden=!mine.length;if(!mine.length)return;
+ b.appendChild(mkEl("b",null,t("codeh")));b.appendChild(mkEl("p","note",t("coden")));
+ mine.forEach(function(l){var d=mkEl("div","cr");var c=mkEl("div",null,l.invite_code);c.style.cssText="font:700 1.8rem var(--sans);letter-spacing:.2em";d.appendChild(c);
+  d.appendChild(document.createTextNode(l.child_id?"\u2714 "+t("cjoin"):t("cwait")));
+  var r=mkEl("button","back",t("unl"));r.onclick=async function(){await sb.from("family_links").delete().eq("id",l.id);loadFam()};d.appendChild(r);b.appendChild(d)})}
+function renderParents(kids,ev){var box=$("plist");box.innerHTML="";
+ if(!kids.length){if(U.role==="child")box.appendChild(mkEl("p","note",t("nofam")));return}
+ box.appendChild(mkEl("p","ql",t("watch")));
+ kids.forEach(function(l){var me=ev.filter(function(x){return x.parent_id===l.parent_id}),
+  ok=me.filter(function(x){return x.kind==="ok"})[0],ck=me.filter(function(x){return x.kind==="checkin"})[0],ss=me.filter(function(x){return x.kind==="sos"}),so=ss[0],
+  T0=function(x){return new Date(x.created_at).getTime()},d=mkEl("div","box");
+  if(so&&Date.now()-T0(so)<864e5)d.appendChild(mkEl("div","sev r",t("sosnow")+" "+tstr(T0(so))));
+  d.appendChild(mkEl("b",null,l.parent_name||""));
+  var okt=ok&&new Date(ok.created_at).toDateString()===new Date().toDateString();
+  function row(lab,val,loc){var r=mkEl("div","cr");r.appendChild(mkEl("b",null,lab));r.appendChild(document.createTextNode(val));
+   if(loc){r.appendChild(document.createTextNode(" \u00b7 "));var a=mkEl("a",null,t("hasloc"));a.href=loc;a.target="_blank";a.rel="noopener";r.appendChild(a)}d.appendChild(r)}
+  row(t("lt"),okt?"\u2714 "+t("okt")+" ("+tstr(T0(ok))+")":t("nook"));
+  row(t("lastchk"),ck?t("sh")[ck.level]+" ("+tstr(T0(ck))+")":t("nochk"));
+  var lo=so&&ss.filter(function(x){return x.lat!=null&&Math.abs(T0(x)-T0(so))<6e5})[0];
+  row("SOS",so?tstr(T0(so)):t("nosos"),lo?"https://maps.google.com/?q="+lo.lat+","+lo.lng:"");
+  var rm=mkEl("button","back",t("unl"));rm.onclick=async function(){await sb.from("family_links").delete().eq("id",l.id);loadFam()};d.appendChild(rm);box.appendChild(d)})}
+function circ(){if(!U||!U.ok)return;$("mine").hidden=U.role==="child";var g=U.lg||{},rows=[],msg=[t("famhead")+" "+(U.name||"")],today=g.ok&&new Date(g.ok).toDateString()===new Date().toDateString();
  var okv=today?"\u2714 "+t("okt")+" ("+tstr(g.ok)+")":t("nook");rows.push([t("lt"),okv]);msg.push(t("lt")+": "+okv);
  var cv=g.chk?t("sh")[g.chk.k]+" ("+tstr(g.chk.ts)+")":t("nochk");rows.push([t("lastchk"),cv]);msg.push(t("lastchk")+": "+cv);
  var sv=g.sos?tstr(g.sos.ts):t("nosos"),loc=g.sos&&g.sos.la?"https://maps.google.com/?q="+g.sos.la+","+g.sos.lo:"";
@@ -304,7 +351,7 @@ function circ(){if(!U||!U.ok)return;var g=U.lg||{},rows=[],msg=[t("famhead")+" "
  rows.forEach(function(r){var d=document.createElement("div");d.className="cr";var b=document.createElement("b");b.textContent=r[0];d.appendChild(b);d.appendChild(document.createTextNode(r[1]));
   if(r[3]){d.appendChild(document.createTextNode(" \u00b7 "));if(r[2]){var a=document.createElement("a");a.href=r[2];a.target="_blank";a.rel="noopener";a.textContent=t("hasloc");d.appendChild(a)}else d.appendChild(document.createTextNode(t("noloc")))}
   box.appendChild(d)});
- $("cwa").textContent=t("cwa");$("cwa").href="https://wa.me/91"+(U.cp||"")+"?text="+encodeURIComponent(msg.join("\n"))}
+}
 var R0=render;render=function(){R0();document.querySelectorAll("[data-p]").forEach(function(n){n.placeholder=t(n.dataset.p)});$("hh").textContent=t("hello")+(U&&U.name?", "+U.name:"");
  $("cancel").textContent=t("cancel");$("wa").textContent=t("wa");$("call").textContent=t("call");$("hosp").textContent=t("hosp");$("s1").textContent=t("s1");$("hl").textContent=t("hl");
  $("sosb").textContent=t("sosl");$("fsm").setAttribute("aria-label",t("fsm"));$("fsp").setAttribute("aria-label",t("fsp"));
@@ -348,23 +395,29 @@ async function finish(){S.busy=1;$("qtext").textContent=t("wait");$("tbox").hidd
  if(!r||!r.severity){var all=S.a.sym+" "+(S.a.more||""),lv=(S.a.sev===2||S.a.dur===2||(S.a.sev>=1&&/fever|vomit|infection|pus|बुखार|उल्टी|मवाद/i.test(all)))?"y":"g",x2=t("res")[lv];r={severity:lv==="g"?"green":"yellow",why:x2.why,home:x2.home,warn:x2.warn,provider:x2.prov,maps_query:x2.mq}}
  if(r.emergency)return sos(false);showRes(r)}
 function showRes(r){var k={green:"g",yellow:"y",red:"r"}[r.severity]||"y",L=function(a){return[].concat(a||[]).map(function(x){return"\u2022 "+x}).join("<br>")},e=function(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML};
- $("sevb").className="sev "+k;$("sevb").textContent=({g:"\u2714 ",y:"\u26A0 ",r:"\u2716 "})[k]+t("sl")[k];$("why").textContent=r.why;$("rhome").innerHTML=L([].concat(r.home).map(e));$("warn").innerHTML=L([].concat(r.warn).map(e));$("prov").textContent=r.provider;S.r=r;log("chk",{k:k,ts:Date.now()});location.hash="result";
+ $("sevb").className="sev "+k;$("sevb").textContent=({g:"\u2714 ",y:"\u26A0 ",r:"\u2716 "})[k]+t("sl")[k];$("why").textContent=r.why;$("rhome").innerHTML=L([].concat(r.home).map(e));$("warn").innerHTML=L([].concat(r.warn).map(e));$("prov").textContent=r.provider;S.r=r;log("chk",{k:k,ts:Date.now()});push("checkin",k);location.hash="result";
  speak([t("sl")[k],r.why].concat(r.home).join(". "))}
 $("care").onclick=function(){window.open("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent((S.r&&S.r.maps_query)||"general physician near me"),"_blank")};
 $("lis").onclick=function(){var r=S.r;speak([t("sl")[{green:"g",yellow:"y",red:"r"}[r.severity]||"y"],r.why].concat(r.home).join(". "))};
 $("again").onclick=function(){location.hash="home"};
 var tm=null;
 var sp=0;
-function sos(self){var n=15,cd=$("cd");sp=1;log("sos",{ts:Date.now()});$("sos").hidden=false;$("hl").hidden=!self;$("s1").textContent=t("s1");cd.textContent=n;clearInterval(tm);speak(t("s1"));
+function sos(self){var n=15,cd=$("cd");sp=1;log("sos",{ts:Date.now()});SX.n++;SX.ids=[];SX.dead=0;var cur=SX.n;trackSos(cur,push("sos"));$("sos").hidden=false;$("hl").hidden=!self;$("s1").textContent=t("s1");cd.textContent=n;clearInterval(tm);speak(t("s1"));
  tm=setInterval(function(){n--;cd.textContent=n>0?n:"!";if(n<=0){sp=0;clearInterval(tm);$("s1").textContent=t("s2");speak(t("s2"))}},1000);
  var base="https://wa.me/91"+((U&&U.cp)||"")+"?text=";$("wa").href=base+encodeURIComponent(t("msg"));$("hosp").href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent("emergency hospital near me");
- try{navigator.geolocation.getCurrentPosition(function(p){$("wa").href=base+encodeURIComponent(t("msg")+"https://maps.google.com/?q="+p.coords.latitude+","+p.coords.longitude);if(U&&U.lg&&U.lg.sos)log("sos",{ts:U.lg.sos.ts,la:p.coords.latitude,lo:p.coords.longitude})})}catch(e){}}
+ try{navigator.geolocation.getCurrentPosition(function(p){$("wa").href=base+encodeURIComponent(t("msg")+"https://maps.google.com/?q="+p.coords.latitude+","+p.coords.longitude);if(U&&U.lg&&U.lg.sos)log("sos",{ts:U.lg.sos.ts,la:p.coords.latitude,lo:p.coords.longitude});trackSos(cur,push("sos",null,p.coords.latitude,p.coords.longitude))})}catch(e){}}
 $("sosb").onclick=function(){sos(false)};
 $("wa").addEventListener("click",function(){sp=0});
-$("cancel").onclick=function(){if(sp){sp=0;log("sos",null)}clearInterval(tm);$("sos").hidden=true;try{speechSynthesis.cancel()}catch(e){}};
-$("okb").onclick=function(){log("ok",Date.now());$("okst").textContent=t("okdone");speak(t("okdone"))};
+$("cancel").onclick=function(){if(sp){sp=0;log("sos",null);SX.dead=1;delDb(SX.ids);SX.ids=[]}clearInterval(tm);$("sos").hidden=true;try{speechSynthesis.cancel()}catch(e){}};
+$("okb").onclick=function(){log("ok",Date.now());$("okst").textContent=t("okdone");speak(t("okdone"));push("ok").then(function(id){if(!id)$("okst").textContent=t("okdone")+" "+t("nosync")+(LE?" ("+LE+")":"")})};
 $("fcb").onclick=function(){location.hash="circle"};
 $("cback").onclick=function(){location.hash="home"};
+$("mkcode").onclick=async function(){$("jerr").textContent="";if(!sb||!U.uid){$("jerr").textContent=t("sbfail");return}
+ var r;for(var i=0;i<3;i++){r=await sb.from("family_links").insert({parent_id:U.uid,parent_name:U.name||"",invite_code:genCode()});if(!r.error||r.error.code!=="23505")break}
+ if(r.error){$("jerr").textContent=t("sbfail")+" ("+r.error.message+")";return}loadFam()};
+$("joinb").onclick=async function(){var c=$("jc").value.trim().toUpperCase();$("jerr").textContent="";if(c.length!==6||!sb){$("jerr").textContent=t("badcode");return}
+ var r=await sb.rpc("join_family",{code:c});if(r.error){$("jerr").textContent=t("badcode");return}$("jc").value="";loadFam()};
+$("kidb").onclick=function(){U.role="child";U.name=U.name||(U.email||"").split("@")[0];save();render();location.hash="circle"};
 $("sendlink").onclick=async function(){var e=$("em").value.trim().toLowerCase();
  if(!/^\S+@\S+\.\S+$/.test(e)){$("lerr").textContent=t("bademail");return}
  if(!sb){$("lerr").textContent=t("sbfail");return}
@@ -378,7 +431,7 @@ $("psave").onclick=function(){var n=$("pn").value.trim(),a=$("pa").value.replace
 var AUTH={profile:1,home:1,check:1,result:1,circle:1},SC=["welcome","login","profile","home","check","result","circle"],PREV="";
 ROUTE=function(){var h=location.hash.slice(1);if(SC.indexOf(h)<0||h==="welcome")h="login";if(AUTH[h]&&!(U&&U.ok))h="login";if(h==="login"&&U&&U.ok)h=U.name?"home":"profile";
  if(h==="result"&&!S.r)h="home";SC.forEach(function(s){$(s).hidden=s!==h});$("sosb").hidden=!AUTH[h];
- if(h==="check"&&PREV!=="check"){S.a={};step(0);S.auto=0}$("tl").hidden=h==="result";if(h==="home")$("okst").textContent="";fam();circ();window.scrollTo(0,0);PREV=h};
+ if(h==="check"&&PREV!=="check"){S.a={};step(0);S.auto=0}$("tl").hidden=h==="result";if(h==="home")$("okst").textContent="";fam();circ();if(h==="circle"){loadFam();sub()}window.scrollTo(0,0);PREV=h};
 })();
 document.getElementById("go").addEventListener("click",function(){location.hash="login"});
 document.getElementById("back").addEventListener("click",function(){location.hash="";history.replaceState(null,"",location.pathname);route()});
